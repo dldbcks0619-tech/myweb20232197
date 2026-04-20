@@ -357,42 +357,60 @@ body {
 .timeline::before { content:''; position:absolute; top: 1.5rem; left: 20%; right: 20%; height: 2px; background: rgba(255,255,255,0.1); z-index: 0; }
 .timeline-item { position: relative; z-index: 1; text-align: center; display:flex; flex-direction: column; align-items:center; }
 .date { background: var(--bg-dark); padding: 0.3rem 0.8rem; border-radius: 20px; border: 1px solid var(--glass-border); color: var(--text-main); font-weight:bold; margin-bottom: 0.5rem; display:inline-block; }
+.board-item-content {
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
 .detail { color: var(--text-muted); }
 
 /* Responsive tweaks */
 @media (max-width: 900px) {
     .container { padding: 0 1rem; }
-    .nav-container { height: 60px; }
-    .logo { font-size: 1rem; }
-    .logo-role { font-size: 0.8rem; }
-    .main-content { margin-top: 80px; }
+    .nav-container { height: auto; flex-direction: column; padding: 0.8rem 1rem; }
+    .logo { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .logo-role { font-size: 0.85rem; }
+    .main-content { margin-top: 100px; }
     
-    .glass-card { padding: 1.5rem; border-radius: 15px; }
-    .slogan { font-size: 1.5rem; }
-    .sub-slogan { font-size: 1rem; }
+    .glass-card { padding: 1.25rem; border-radius: 12px; }
+    .slogan { font-size: 1.6rem; letter-spacing: -0.5px; }
+    .sub-slogan { font-size: 1rem; line-height: 1.4; }
     .section-title { font-size: 1.4rem; }
+
+    .nav-menu { 
+        display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center;
+        padding: 0.4rem 0; width: 100%;
+    }
+    .nav-link { 
+        padding: 0.35rem 0.6rem; font-size: 0.75rem; border-radius: 6px;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-link.active { background: var(--samsung-blue); border-color: var(--samsung-light-blue); }
 
     .content-split { flex-direction: column; gap: 1.5rem; }
     .card-grid-2 { grid-template-columns: 1fr; gap: 1.5rem; }
-    .nav-menu { 
-        display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;
-        padding: 0.5rem 0; width: 100%;
-    }
-    .nav-link { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
-    .nav-container { height: auto; flex-direction: column; padding: 1rem; }
-    .logo { margin-bottom: 0.5rem; }
-    .roadmap-track { left: 15px; transform: none; }
-    .roadmap-node { left: 15px; transform: translateY(-50%); width: 26px; height: 26px; font-size: 0.8rem; }
-    .roadmap-step, .roadmap-step.left { flex-direction: column; align-items: flex-start; padding-left: 40px; margin-bottom: 2rem; }
-    .roadmap-step .roadmap-content { width: 100%; padding: 1rem; }
+    
+    .timeline { flex-direction: column; gap: 1.5rem; align-items: start; padding-left: 1rem; }
+    .timeline::before { display: none; }
+    .timeline-item { width: 100%; text-align: left; }
+    
+    .roadmap-container { padding: 1rem 0.2rem; }
+    .roadmap-track { left: 12px; transform: none; }
+    .roadmap-node { left: 12px; transform: translateY(-50%); width: 24px; height: 24px; font-size: 0.75rem; }
+    .roadmap-step, .roadmap-step.left { flex-direction: column; align-items: flex-start; padding-left: 35px; margin-bottom: 1.5rem; }
+    .roadmap-step .roadmap-content { width: 100%; padding: 0.8rem; }
 }
 
 @media (max-width: 600px) {
-    .slogan { font-size: 1.3rem; }
-    .badge-text { font-size: 0.9rem; }
-    .badge-icon { width: 30px; height: 30px; font-size: 1.2rem; }
-    .chart-wrapper { height: 250px; }
-    .modal-content { padding: 1.5rem; width: 95%; }
+    .slogan { font-size: 1.4rem; }
+    .splash-quote { font-size: 1.1rem; }
+    .splash-name { font-size: 1.6rem; margin-top: 1rem; }
+    .badge-text { font-size: 0.85rem; }
+    .badge-icon { width: 28px; height: 28px; font-size: 1rem; }
+    .chart-wrapper { height: 220px; }
+    .modal-content { padding: 1.25rem; }
 }
 
 /* Modal Styles */
@@ -447,8 +465,10 @@ body {
 .degree-card { cursor: pointer; }
 
 @media (max-width: 768px) {
-    .modal-grid { grid-template-columns: 1fr; }
-    .modal-image { max-height: 200px; }
+    .modal-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .modal-image { max-height: 180px; }
+    .modal-content { padding: 1.5rem; width: 95%; max-width: none; }
+    .close-modal { font-size: 2rem; top: 10px; right: 15px; }
 }
 
 /* Splash Screen Intro Animation */
