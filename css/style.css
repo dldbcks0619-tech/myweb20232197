@@ -1,0 +1,482 @@
+/* Custom Variables for Samsung Theme */
+:root {
+    --bg-dark: #0a0a0f;
+    --samsung-blue: #034EA2;
+    --samsung-light-blue: #1473E6;
+    --gold: #D4AF37;
+    --text-main: #E2E8F0;
+    --text-muted: #94A3B8;
+    --pure-white: #FFFFFF;
+    --glass-bg: rgba(10, 15, 30, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Subtle Wafer Pattern Background */
+.wafer-background {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(3, 78, 162, 0.05) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 60px 60px, 60px 60px;
+    background-position: center center;
+    z-index: -2;
+}
+
+.overlay-grid {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 100% 0%, rgba(3, 78, 162, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(20, 115, 230, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Typography Utilities */
+.text-center { text-align: center; }
+.highlight-gold { color: var(--gold); }
+.mt-2 { margin-top: 1rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-6 { margin-top: 3rem; }
+.mb-2 { margin-bottom: 1rem; }
+.text-sm { font-size: 0.85rem; }
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(10, 15, 30, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 100;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo-samsung { color: var(--pure-white); white-space: nowrap; }
+.logo-divider { color: var(--samsung-blue); }
+.logo-role { font-weight: 400; font-size: 1rem; color: var(--text-muted); white-space: nowrap; }
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--pure-white); }
+.nav-link.active {
+    color: var(--pure-white);
+    text-shadow: 0 0 10px rgba(3, 78, 162, 0.8);
+}
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0; width: 100%; height: 2px;
+    background: var(--samsung-light-blue);
+    box-shadow: 0 0 8px var(--samsung-light-blue);
+}
+
+/* Main Content area */
+.main-content {
+    margin-top: 120px;
+    padding-bottom: 4rem;
+    position: relative;
+    min-height: calc(100vh - 120px);
+}
+
+/* SPA Sections */
+.section {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+.section.active { display: block; }
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scanning Animation Overlay */
+.scanning-effect {
+    position: fixed;
+    top: -100%; left: 0; right: 0; height: 100vh;
+    background: linear-gradient(to bottom, transparent, rgba(3, 78, 162, 0.2) 50%, transparent);
+    z-index: 50; pointer-events: none;
+}
+.scanning {
+    animation: scanAnimation 1.2s ease-in-out;
+}
+@keyframes scanAnimation {
+    0% { top: -100%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    transform: skewX(-20deg);
+    transition: 0.5s;
+}
+.glass-card:hover::before { left: 150%; }
+.full-card { width: 100%; }
+
+/* Card Grids */
+.card-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+}
+.flex-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* Headers inside cards */
+.card-header { margin-bottom: 2rem; }
+.slogan { font-size: 2.2rem; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
+.sub-slogan { font-size: 1.2rem; color: var(--text-muted); }
+.section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; border-left: 4px solid var(--samsung-blue); padding-left: 1rem; }
+
+/* Content Split Layout */
+.content-split {
+    display: flex; gap: 3rem; align-items: center;
+}
+.content-split > * { flex: 1; }
+
+.story-text { line-height: 1.6; color: var(--text-muted); margin-bottom: 1.5rem; }
+.bullet-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.bullet-list li {
+    position: relative; padding-left: 1.5rem; line-height: 1.5;
+    background: rgba(255,255,255,0.03); padding: 1rem 1rem 1rem 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);
+}
+.bullet-list li::before {
+    content: "■"; position: absolute; left: 1rem; color: var(--samsung-blue); font-size: 0.8rem; top: 1.2rem;
+}
+.bullet-list.no-bg li { background: none; border: none; padding: 0.5rem 0 0.5rem 1.5rem; }
+.bullet-list.no-bg li::before { left: 0; top: 0.7rem; }
+
+/* Gold Badge */
+.badge-container { margin-bottom: 2rem; }
+.gold-badge {
+    display: inline-flex; align-items: center; gap: 1rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+    border: 1px solid var(--gold); border-radius: 50px; padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+.badge-icon { background: var(--gold); color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
+.badge-text { font-weight: 700; color: var(--gold); line-height: 1.2; }
+.badge-small { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem; background: rgba(255,255,255,0.1); }
+.badge-small.advanced { background: var(--samsung-blue); color: white; }
+
+/* Chart Container */
+.chart-wrapper {
+    background: rgba(0,0,0,0.3); border-radius: 15px; padding: 1.5rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    height: 350px; position: relative; width: 100%;
+}
+.chart-caption { margin-top: 1rem; font-style: italic; color: var(--text-muted); font-size: 0.9rem; }
+
+/* Creative Section Images */
+.image-wrapper { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+.image-wrapper img { width: 100%; height: auto; display: block; filter: brightness(0.9); transition: 0.4s ease; }
+.image-wrapper:hover img { filter: brightness(1.1) scale(1.02); }
+
+.tech-advanced { position: relative; overflow: hidden; }
+.tech-advanced::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    /* Linking perfectly to our generated image */
+    background: url('../assets/semiconductor_future.png') center/cover no-repeat;
+    opacity: 0.3; filter: grayscale(50%) contrast(1.2); mix-blend-mode: overlay;
+    z-index: 0; transition: opacity 0.5s;
+}
+.tech-advanced:hover::before { opacity: 0.5; }
+.z-index-10 { position: relative; z-index: 10; }
+.light-text p, .light-text li { color: rgba(255,255,255,0.9) !important; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+
+/* Bootcamp Degrees */
+.degree-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem;
+}
+.degree-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px;
+    padding: 1.5rem; text-align: center; transition: all 0.3s ease; position: relative;
+    overflow: hidden;
+}
+.degree-card:hover {
+    transform: translateY(-5px); border-color: var(--samsung-light-blue);
+    box-shadow: 0 10px 20px rgba(3, 78, 162, 0.2); background: rgba(3, 78, 162, 0.1);
+}
+.degree-icon {
+    font-size: 2rem; font-weight: 900; color: rgba(255,255,255,0.1); position: absolute; right: 10px; top: 5px;
+    transition: 0.3s;
+}
+.degree-card:hover .degree-icon { color: rgba(3, 78, 162, 0.4); }
+.degree-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--pure-white); position: relative; z-index: 2; margin-top: 1rem;}
+.quote-box { background: rgba(3, 78, 162, 0.15); border-left: 4px solid var(--samsung-blue); padding: 1.5rem; border-radius: 0 8px 8px 0; }
+
+/* Engineering Logic Graphics */
+.premium-logic {
+    background: radial-gradient(circle at center, rgba(3, 78, 162, 0.15), transparent);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 2rem;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 0 30px rgba(3, 78, 162, 0.1) inset;
+}
+.glowing-svg { width: 100%; max-width: 300px; height: auto; }
+.circuit-path { stroke-dasharray: 100; stroke-dashoffset: 100; }
+.in-path { animation: drawPath 2s ease forwards infinite alternate; }
+.in-path2 { animation: drawPath 2.5s ease forwards infinite alternate-reverse; }
+.clk-path { stroke-dasharray: 20; animation: dash 1s linear infinite; }
+.out-path { animation: drawPath 2.2s ease forwards infinite alternate; }
+.out-path2 { animation: drawPath 1.8s ease forwards infinite alternate-reverse; }
+
+@keyframes drawPath { to { stroke-dashoffset: 0; } }
+@keyframes dash { to { stroke-dashoffset: -40; } }
+
+/* Premium Code Snippet */
+.premium-code { width: 100%; }
+.mac-window {
+    background: #0d1117; border-radius: 8px;
+    border: 1px solid #30363d; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.mac-header {
+    background: #161b22; padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid #30363d;
+}
+.mac-header .dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+.mac-header .title { margin-left: auto; margin-right: auto; color: #8b949e; font-size: 0.8rem; font-family: 'Courier New', monospace; }
+.mac-body { padding: 1.5rem; overflow-x: auto; position: relative;}
+.typing-code { font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; line-height: 1.6; color: #c9d1d9; }
+.typing-code .keyword { color: #ff7b72; }
+.typing-code .function { color: #d2a8ff; }
+.typing-code .comment { color: #8b949e; font-style: italic; }
+.typing-code .string { color: #a5d6ff; }
+.typing-code .number { color: #79c0ff; }
+
+/* Curriculum Roadmap */
+.roadmap-container { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
+.roadmap-track { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(20, 115, 230, 0.3); transform: translateX(-50%); }
+.roadmap-step { position: relative; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 1.5rem; }
+.roadmap-step.left { flex-direction: row-reverse; }
+.roadmap-step .roadmap-content {
+    width: 45%; padding: 1rem; background: rgba(0, 0, 0, 0.4); 
+    border: 1px solid var(--samsung-blue); border-radius: 12px;
+    transition: 0.3s ease; position: relative; z-index: 2;
+}
+.roadmap-step .roadmap-content h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.roadmap-step .roadmap-content:hover {
+    transform: scale(1.02); box-shadow: 0 0 20px rgba(20, 115, 230, 0.2);
+}
+.roadmap-node {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bg-dark); border: 2px solid var(--samsung-light-blue);
+    display: flex; justify-content: center; align-items: center;
+    font-weight: 800; color: var(--pure-white); z-index: 3;
+    box-shadow: 0 0 10px rgba(20, 115, 230, 0.5);
+    font-size: 0.9rem;
+}
+.subject-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem !important; }
+.tag {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px;
+}
+
+/* Timeline */
+.timeline { display: flex; justify-content: center; gap: 4rem; padding-top: 1rem; position: relative;}
+.timeline::before { content:''; position:absolute; top: 1.5rem; left: 20%; right: 20%; height: 2px; background: rgba(255,255,255,0.1); z-index: 0; }
+.timeline-item { position: relative; z-index: 1; text-align: center; display:flex; flex-direction: column; align-items:center; }
+.date { background: var(--bg-dark); padding: 0.3rem 0.8rem; border-radius: 20px; border: 1px solid var(--glass-border); color: var(--text-main); font-weight:bold; margin-bottom: 0.5rem; display:inline-block; }
+.detail { color: var(--text-muted); }
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+    .container { padding: 0 1rem; }
+    .nav-container { height: 60px; }
+    .logo { font-size: 1rem; }
+    .logo-role { font-size: 0.8rem; }
+    .main-content { margin-top: 80px; }
+    
+    .glass-card { padding: 1.5rem; border-radius: 15px; }
+    .slogan { font-size: 1.5rem; }
+    .sub-slogan { font-size: 1rem; }
+    .section-title { font-size: 1.4rem; }
+
+    .content-split { flex-direction: column; gap: 1.5rem; }
+    .card-grid-2 { grid-template-columns: 1fr; gap: 1.5rem; }
+    .nav-menu { 
+        display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;
+        padding: 0.5rem 0; width: 100%;
+    }
+    .nav-link { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+    .nav-container { height: auto; flex-direction: column; padding: 1rem; }
+    .logo { margin-bottom: 0.5rem; }
+    .roadmap-track { left: 15px; transform: none; }
+    .roadmap-node { left: 15px; transform: translateY(-50%); width: 26px; height: 26px; font-size: 0.8rem; }
+    .roadmap-step, .roadmap-step.left { flex-direction: column; align-items: flex-start; padding-left: 40px; margin-bottom: 2rem; }
+    .roadmap-step .roadmap-content { width: 100%; padding: 1rem; }
+}
+
+@media (max-width: 600px) {
+    .slogan { font-size: 1.3rem; }
+    .badge-text { font-size: 0.9rem; }
+    .badge-icon { width: 30px; height: 30px; font-size: 1.2rem; }
+    .chart-wrapper { height: 250px; }
+    .modal-content { padding: 1.5rem; width: 95%; }
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    width: 90%;
+    max-width: 800px;
+    transform: translateY(30px);
+    transition: all 0.4s ease;
+    padding: 2.5rem;
+}
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: none; border: none;
+    color: var(--text-muted); font-size: 2.5rem;
+    cursor: pointer; transition: 0.3s;
+    z-index: 10;
+}
+.close-modal:hover { color: var(--pure-white); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.modal-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; align-items: start;
+}
+.modal-image {
+    width: 100%; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--glass-border);
+    max-height: 300px;
+}
+.modal-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.modal-meta { color: var(--samsung-light-blue); font-size: 0.95rem; }
+.modal-text { display: flex; flex-direction: column; }
+
+.degree-card { cursor: pointer; }
+
+@media (max-width: 768px) {
+    .modal-grid { grid-template-columns: 1fr; }
+    .modal-image { max-height: 200px; }
+}
+
+/* Splash Screen Intro Animation */
+.splash-screen {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--bg-dark);
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+    flex-direction: column;
+    animation: slideUpSplash 1.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    animation-delay: 4.5s;
+    pointer-events: all;
+}
+.splash-content { padding: 2rem; text-align: center; }
+.splash-quote {
+    font-size: 1.4rem; color: var(--text-muted); font-weight: 300; font-style: italic; letter-spacing: 1px;
+    opacity: 0; transform: translateY(15px);
+    animation: fadeUpIn 1s forwards;
+    animation-delay: 0.5s;
+}
+.splash-name {
+    margin-top: 1.5rem; font-size: 2.3rem; font-weight: 800; color: var(--pure-white);
+    opacity: 0; transform: translateY(15px);
+    animation: fadeUpIn 1s forwards;
+    animation-delay: 2s;
+}
+.splash-name span { color: var(--samsung-light-blue); text-shadow: 0 0 15px rgba(20, 115, 230, 0.5); }
+
+@keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUpSplash { 
+    to { transform: translateY(-100vh); opacity: 0; visibility: hidden; pointer-events: none; } 
+}

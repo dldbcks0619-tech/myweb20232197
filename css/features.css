@@ -1,0 +1,287 @@
+/* Features CSS - Added to support Free Board and Footer */
+
+/* Footer Styling - Matches the provided photo style */
+.footer-contact {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+    padding: 10px 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 150; /* Above splash and scanner */
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.footer-address {
+    font-weight: 300;
+}
+
+.footer-info {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-info strong {
+    color: #ccc;
+}
+
+/* Free Board Styling */
+.board-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background: var(--samsung-blue);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--samsung-light-blue);
+    box-shadow: 0 0 15px rgba(20, 115, 230, 0.4);
+}
+
+.board-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.board-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: 0.3s;
+}
+
+.board-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--samsung-light-blue);
+}
+
+.board-item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 0.5rem;
+}
+
+.board-item-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--pure-white);
+}
+
+.board-item-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.board-item-content {
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.board-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.btn-small {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-small:hover {
+    color: var(--pure-white);
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-delete:hover {
+    background: rgba(255, 95, 86, 0.2);
+    border-color: #ff5f56;
+    color: #ff5f56;
+}
+
+/* Form Overlay */
+.board-form-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-form-card {
+    width: 90%;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.form-control {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--glass-border);
+    color: var(--pure-white);
+    padding: 0.9rem;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--samsung-light-blue);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Inquiry Section */
+.inquiry-section {
+    margin-top: 4rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 3rem;
+}
+
+.inquiry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+}
+
+@media (max-width: 900px) {
+    .inquiry-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-contact {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        text-align: center;
+    }
+    .footer-info {
+        gap: 10px;
+    }
+}
+
+/* Bootcamp Mastery Grid (6 Items) */
+.mastery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.mastery-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    transition: 0.3s ease;
+    transform: translateZ(0); /* Hardware Acceleration to prevent scrolling lag */
+}
+
+.mastery-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--samsung-light-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(20, 115, 230, 0.1);
+}
+
+.mastery-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    /* Color and Background injected via inline style per item */
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.mastery-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.mastery-info {
+    flex-grow: 1;
+}
+
+.mastery-info h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--pure-white);
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.3px;
+}
+
+.mastery-info p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+@media (max-width: 900px) {
+    .mastery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .mastery-grid {
+        grid-template-columns: 1fr;
+    }
+}

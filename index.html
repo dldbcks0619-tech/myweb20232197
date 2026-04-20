@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Growth Architect | 삼성전자 DS 설비 엔지니어 이유찬</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+    <!-- Intro Splash Screen -->
+    <div class="splash-screen">
+        <script>
+            if (sessionStorage.getItem('splashShown')) {
+                document.querySelector('.splash-screen').style.display = 'none';
+            } else {
+                setTimeout(() => {
+                    sessionStorage.setItem('splashShown', 'true');
+                }, 5200); // 4s delay + 1.2s animation approx
+            }
+        </script>
+        <div class="splash-content">
+            <p class="splash-quote">"실패를 분석하는 냉철함과 한계를 넘어서는 끈기"</p>
+            <h1 class="splash-name">삼성 설비의 무결성을 완성할 엔지니어, <span>이유찬</span></h1>
+        </div>
+    </div>
+
+    <div class="wafer-background"></div>
+    <div class="overlay-grid"></div>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-samsung">이유찬</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-role">20232197</span>
+            </div>
+            <ul class="nav-menu">
+                <li><button class="nav-link active" data-section="home">홈: 성장 스토리</button></li>
+                <li><button class="nav-link" data-section="creative">설계 프로젝트 (수상)</button></li>
+                <li><button class="nav-link" data-section="bootcamp">반도체 부트캠프</button></li>
+                <li><button class="nav-link" data-section="roadmap">커리큘럼 로드맵</button></li>
+                <li><button class="nav-link" data-section="logic">엔지니어링 로직</button></li>
+                <li><button class="nav-link" data-section="innovation">미래 혁신 역량</button></li>
+                <li><button class="nav-link" data-section="board">자유게시판 & 문의</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content container">
+        
+        <!-- SECTION 1: Home -->
+        <section id="home" class="section active">
+            <div class="glass-card full-card">
+                <div class="card-header text-center">
+                    <h1 class="slogan">상향 곡선의 열정으로 증명된 <span class="highlight-gold">3학년 연속 수상</span> 성과</h1>
+                    <p class="sub-slogan">삼성의 설비 무결성을 책임질 엔지니어, <strong>이유찬</strong>입니다.</p>
+                </div>
+                
+                <div class="content-split">
+                    <div class="text-content">
+                        <div class="badge-container">
+                            <div class="gold-badge">
+                                <div class="badge-icon">★</div>
+                                <div class="badge-text">3학년 연속 창의적공학설계 수상<br><small>2023, 2026~2027</small></div>
+                            </div>
+                        </div>
+                        <h2 class="section-title">The Growth Story</h2>
+                        <ul class="bullet-list">
+                            <li><strong>학습 민첩성(Learning Agility):</strong> 1학년의 적응기 성적 부진을 패기로 극복. 2, 3학년 전공 몰입을 통한 폭발적 성적 향상.</li>
+                            <li><strong>지속적 탁월함:</strong> 3학년 연속 설계 프로젝트 수상을 바탕으로 실무 설계 및 트러블슈팅 역량 증명.</li>
+                            <li><strong>직무 준비성:</strong> 반도체부트캠프사업단 6개 마이크로디그리 과정 성실 이수.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-wrapper">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                        <p class="chart-caption text-center">"기술적 패기가 만든 J커브의 증명"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Creative Design -->
+        <section id="creative" class="section">
+            <div class="card-grid-2">
+                <div class="glass-card flex-col">
+                    <div class="card-header">
+                        <span class="badge-small">Foundation</span>
+                        <h2 class="section-title">1학년: 기술적 조기 발굴</h2>
+                    </div>
+                    <div class="image-wrapper foundation-img">
+                        <img src="assets/image_3.png" alt="1학년 기초 기구 설계 작품" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlZWVlZWUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzk5OTk5OSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+YXNzZXRzL2ltYWdlXzMucG5nIChQbGFjZWhvbGRlcik8L3RleHQ+PC9zdmc+'" />
+                    </div>
+                    <div class="desc-content">
+                        <p><strong>주제:</strong> 기초 기구 설계 및 문제 해결<br>
+                        <strong>성과:</strong> 창의적공학설계 Foundation 트랙 수상</p>
+                        <p class="story-text">이 초기 성과가 엔지니어링에 대한 흥미와 패기를 불태우는 기폭제가 되었습니다.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card flex-col tech-advanced">
+                    <!-- The Background AI Image will be applied via CSS to `.tech-advanced::before` -->
+                    <div class="z-index-10">
+                        <div class="card-header">
+                            <span class="badge-small advanced">Advanced</span>
+                            <h2 class="section-title">2, 3학년: 심화 설계 및 무결성</h2>
+                        </div>
+                        <div class="desc-content light-text">
+                            <p><strong>주제:</strong> 크랭크-로커 메커니즘 시뮬레이션 및 RPM 최적화 제어 설계<br>
+                            <strong>성과:</strong> <u>창의적공학설계 3년 연속 수상</u></p>
+                            <ul class="bullet-list no-bg">
+                                <li><strong>정밀 계산:</strong> 모터의 토크 및 RPM을 계산하여 설비 구동부 설계 반영.</li>
+                                <li><strong>무결성 제어:</strong> 센서값을 활용한 피드백 루프로 설비 오차율 0.5% 이내 최소화.</li>
+                                <li><strong>협업 리더십:</strong> 기구 및 제어 파트의 통합 최적화를 주도하며 팀 프로젝트 성과 창출.</li>
+                            </ul>
+                            <p class="story-text">"기초를 넘어서, 실무 환경에서 요구되는 자동화 설비의 데이터 신뢰성과 정밀한 제어 로직을 습득했습니다."</p>
+                        </div>
+                        <div class="image-wrapper mt-4" style="margin-top: 1.5rem;">
+                            <img src="assets/advanced_design.png" alt="Advanced Engineering Design Mechanism" style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3);" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Bootcamp Mastery -->
+        <section id="bootcamp" class="section">
+            <div class="glass-card full-card">
+                <div class="card-header text-center">
+                    <h2 class="section-title">Bootcamp Mastery</h2>
+                    <p>반도체부트캠프 집중 교육 이수 (총 6개 마이크로디그리)</p>
+                </div>
+                
+                <div class="mastery-grid mt-6">
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #1473E6; background: rgba(20, 115, 230, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>반도체 공정 및 설비기초</h3>
+                            <p>8대 공정과 핵심 장비의 원리, 기계 및 화학적 메커니즘을 기초부터 탄탄히 확립했습니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #00e5ff; background: rgba(0, 229, 255, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>반도체 설비자동화</h3>
+                            <p>실제 팹(Fab) 환경과 유사하게 센서와 액츄에이터 네트워크를 활용하여 설비 시퀀스를 자동 제어합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #ff9900; background: rgba(255, 153, 0, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>반도체 설비설계</h3>
+                            <p>2D/3D CAD를 이용한 부품 도면 설계와 구동부의 동역학적 메커니즘을 분석 및 최적화합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #D4AF37; background: rgba(212, 175, 55, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>반도체 장비제어 (PLC)</h3>
+                            <p>마이크로프로세서와 PLC 래더(Ladder)를 통해 장비의 정밀 모터 제어 및 Fail-safe 로직을 구현합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #ff5f56; background: rgba(255, 95, 86, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>반도체 설비유지보수</h3>
+                            <p>설비 불량(Fault) 데이터를 분석하여 신속한 트러블슈팅으로 챔버 장비 가동률을 극대화합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mastery-card">
+                        <div class="mastery-icon" style="color: #4cd964; background: rgba(76, 217, 100, 0.15);">
+                            <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                        </div>
+                        <div class="mastery-info">
+                            <h3>장비 S/W 운용 (데이터 수집)</h3>
+                            <p>SECS/GEM 통신 표준을 기반으로 호스트 서버와 장비 상태 데이터를 실시간 연동 및 모니터링합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-box mt-4 text-center">
+                    <p><strong>"로봇소프트웨어 운용 및 유지보수 전문기술인 양성"</strong>이라는 학과 교육 목표에 완벽히 부합하는 인재.<br>삼성전자 설비 직무 현장에 즉시 투입될 준비를 마쳤습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Curriculum Roadmap -->
+        <section id="roadmap" class="section">
+            <div class="glass-card full-card">
+                <div class="card-header text-center">
+                    <span class="badge-small advanced">Roadmap</span>
+                    <h2 class="section-title">핵심 학과 교과목 로드맵</h2>
+                    <p class="sub-slogan" style="color:var(--text-muted)">성장형 엔지니어의 기초부터 실무 연계까지, 빈틈없이 설계된 커리큘럼</p>
+                </div>
+                
+                <div class="roadmap-container mt-6">
+                    <div class="roadmap-track"></div>
+                    
+                    <div class="roadmap-step left">
+                        <div class="roadmap-node">1</div>
+                        <div class="roadmap-content glass-card">
+                            <h3 class="highlight-gold">1학년: 기초 로봇 공학 및 설계 입문</h3>
+                            <div class="subject-tags mt-2">
+                                <span class="tag">엔지니어링기초</span>
+                                <span class="tag">3차원CAD / CAD기초</span>
+                                <span class="tag">디지털논리회로</span>
+                                <span class="tag">전기회로 및 실습</span>
+                                <span class="tag">창의적공학설계(캡스톤디자인)</span>
+                            </div>
+                            <p class="mt-2 text-sm" style="color:var(--text-muted)">로봇 공학의 기초 이론과 설계 도구 활용 능력을 배양하며 엔지니어링 마인드를 확립한 시기.</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-step right">
+                        <div class="roadmap-node">2</div>
+                        <div class="roadmap-content glass-card">
+                            <h3 class="highlight-gold">2학년: 로봇 제어 및 프로그래밍 심화</h3>
+                            <div class="subject-tags mt-2">
+                                <span class="tag">파이썬프로그래밍</span>
+                                <span class="tag">아두이노프로그래밍</span>
+                                <span class="tag">로봇공학기초</span>
+                                <span class="tag">전자회로 및 실습</span>
+                                <span class="tag">윈도우프로그래밍</span>
+                                <span class="tag">웹프로그래밍</span>
+                                <span class="tag">영어회화(교양)</span>
+                            </div>
+                            <p class="mt-2 text-sm" style="color:var(--text-muted)">다양한 언어와 플랫폼을 활용한 로봇 제어 소프트웨어 개발 역량을 집중적으로 강화한 시기.</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-step left">
+                        <div class="roadmap-node">3</div>
+                        <div class="roadmap-content glass-card">
+                            <h3 class="highlight-gold">3학년: 산업용 제어 및 실무 통합 (Advanced)</h3>
+                            <div class="subject-tags mt-2">
+                                <span class="tag">PLC프로그래밍</span>
+                                <span class="tag">마이크로컨트롤러</span>
+                                <span class="tag">전공영어</span>
+                                <span class="tag">현장실습</span>
+                                <span class="tag">창의적공학설계 (종합)</span>
+                            </div>
+                            <p class="mt-2 text-sm" style="color:var(--text-muted)">산업 현장에서 즉각 활용 가능한 실무 제어 로직과 전문 직무 역량을 완성하는 단계.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Engineering Logic -->
+        <section id="logic" class="section">
+            <div class="glass-card full-card">
+                <div class="card-header">
+                    <h2 class="section-title">Engineering Logic: 의도의 논리</h2>
+                </div>
+                
+                <div class="logic-content content-split mt-4">
+                    <div class="text-content">
+                        <h3>PLC & 전기회로 정밀 제어</h3>
+                        <p class="story-text">JK Flip-Flop 등 기본 논리회로에 대한 깊은 이해를 기반으로 래더 로직(Ladder Logic)을 짜는 과정은, 설비의 동작 순서와 안전을 보장하는 <strong>'의도의 논리'</strong>를 구현하는 것입니다.</p>
+                        <ul class="bullet-list mt-2">
+                            <li>설비 이상 상태(Fault) 발생 시 Fail-safe 로직 구현 능력.</li>
+                            <li>정확한 타이밍 차트 분석 및 시퀀스 다이어그램 작성.</li>
+                        </ul>
+                    </div>
+                    <div class="visual-content premium-logic">
+                        <div class="circuit-container">
+                            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="glowing-svg">
+                                <defs>
+                                    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <path class="circuit-path in-path" d="M 10 30 L 50 30 L 50 50 L 70 50" stroke="#1473E6" fill="none" stroke-width="2"/>
+                                <path class="circuit-path in-path2" d="M 10 120 L 50 120 L 50 100 L 70 100" stroke="#1473E6" fill="none" stroke-width="2"/>
+                                <path class="circuit-path clk-path" d="M 10 75 L 70 75" stroke="#D4AF37" fill="none" stroke-width="2"/>
+                                <rect x="70" y="30" width="60" height="90" rx="4" fill="rgba(3, 78, 162, 0.2)" stroke="#1473E6" stroke-width="2" filter="url(#neonGlow)"/>
+                                <text x="100" y="80" fill="#E2E8F0" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">JK FF</text>
+                                <path class="circuit-path out-path" d="M 130 50 L 190 50" stroke="#1473E6" fill="none" stroke-width="2"/>
+                                <path class="circuit-path out-path2" d="M 130 100 L 190 100" stroke="#1473E6" fill="none" stroke-width="2"/>
+                                <text x="160" y="45" fill="#E2E8F0" font-size="12" font-family="monospace">Q</text>
+                                <text x="160" y="115" fill="#E2E8F0" font-size="12" font-family="monospace">Q'</text>
+                                
+                                <circle r="2.5" fill="#FFF" filter="url(#neonGlow)">
+                                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M 10 30 L 50 30 L 50 50 L 70 50" />
+                                </circle>
+                                <circle r="2.5" fill="#FFF" filter="url(#neonGlow)">
+                                    <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s" path="M 10 120 L 50 120 L 50 100 L 70 100" />
+                                </circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- SECTION 6: Future Innovation -->
+        <section id="innovation" class="section">
+            <div class="glass-card full-card">
+                <div class="card-header">
+                    <h2 class="section-title">Future Innovation & Grit</h2>
+                </div>
+                
+                <div class="logic-content content-split mt-4">
+                    <div class="text-content">
+                        <h3>AI 협업 (Vibe Coding) 및 DT 역량</h3>
+                        <p class="story-text">미래의 유지보수 엔지니어는 기계를 고치는 것을 넘어 데이터를 다루어야 합니다. 코딩 보조 AI(Vibe Coding)를 활용한 스크립트 작성 및 로그 데이터 분석을 통해 설비 유지보수 과정을 디지털 트랜스포메이션(DT)하는 데 기여하겠습니다.</p>
+                    </div>
+                    <div class="visual-content premium-code">
+                        <div class="mac-window">
+                            <div class="mac-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="title">vibe_coding.py</span>
+                            </div>
+                            <div class="mac-body">
+                                <pre><code class="typing-code">
+<span class="keyword">def</span> <span class="function">analyze_wafer_log</span>(log_data):
+    <span class="comment"># AI-Assisted predictive maintenance</span>
+    error_rate = <span class="function">sum</span>(log[<span class="string">'error'</span>] <span class="keyword">for</span> log <span class="keyword">in</span> log_data)
+    
+    <span class="keyword">if</span> error_rate &lt; <span class="number">0.05</span>:
+        <span class="keyword">return</span> <span class="string">"OPTIMIZED"</span>
+        
+    <span class="keyword">return</span> <span class="string">"ATTENTION_REQUIRED"</span>
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-container mt-6">
+                    <h3 class="text-center text-sm mb-2" style="color:var(--text-muted); padding-top:2rem; border-top: 1px solid rgba(255,255,255,0.1)">책임감의 근거 (Timeline)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item text-sm">
+                            <span class="date">군 복무</span>
+                            <span class="detail">분대장 역임 및 특수 훈련 2개 이수로 증명된 끈기와 강한 책임감</span>
+                        </div>
+                        <div class="timeline-item text-sm">
+                            <span class="date">아르바이트</span>
+                            <span class="detail">다양한 환경 적응, 꾸준히 결근/지각을 하지 않으며 아직까지도 인연을 이어가고 있는 성실함 검증</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 7: Free Board & Contact -->
+        <section id="board" class="section">
+            <div class="glass-card full-card">
+                <div class="board-header">
+                    <h2 class="section-title">Free Board: 소통의 공간</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-small" onclick="loadPosts()" style="height: 42px;">새로고침</button>
+                        <button class="btn-primary" id="btn-new-post">새 글 쓰기</button>
+                    </div>
+                </div>
+                
+                <div id="board-list" class="board-list" style="margin-bottom: 3rem;">
+                    <!-- Posts will be injected here -->
+                </div>
+
+                <div class="inquiry-section">
+                    <h2 class="section-title">Direct Inquiry: 이메일 문의</h2>
+                    <div class="inquiry-grid">
+                        <div class="desc-content">
+                            <p class="story-text">궁금하신 점이나 제안사항이 있으시면 아래 양식을 통해 직접 메일을 보내주세요. 확인 후 최대한 빨리 답변 드리겠습니다.</p>
+                            <div class="footer-info" style="flex-direction: column; gap: 10px; opacity: 1;">
+                                <span><strong>Department :</strong> 로봇자동화공학부</span>
+                                <span><strong>Tel :</strong> 010-3846-0536</span>
+                                <span><strong>e-mail :</strong> dldbcks0619@naver.com</span>
+                            </div>
+                        </div>
+                        <form id="inquiry-form" class="glass-card" style="padding: 1.5rem;">
+                            <!-- 스팸 방지 및 폼 설정 -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="[포트폴리오 문의] 새로운 연락이 도착했습니다.">
+                            
+                            <div class="form-group">
+                                <label for="inquiry-name">이름 / 소속</label>
+                                <input type="text" name="이름" id="inquiry-name" class="form-control" placeholder="성함을 입력해주세요" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inquiry-contact">연락처 / 이메일</label>
+                                <input type="text" name="연락처" id="inquiry-contact" class="form-control" placeholder="답변받으실 연락처를 입력해주세요" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inquiry-content">문의 내용</label>
+                                <textarea name="문의내용" id="inquiry-content" class="form-control" rows="4" placeholder="문의하실 내용을 입력해주세요" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary" style="width: 100%;">질문 보내기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Course Detail Modal -->
+    <div id="course-modal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <button class="close-modal">&times;</button>
+            <div class="modal-grid">
+                <div class="modal-image">
+                    <img id="modal-img" src="" alt="Course Image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMzMzMiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzc3NyIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q291cnNlIEltYWdlPC90ZXh0Pjwvc3ZnPg=='" />
+                </div>
+                <div class="modal-text">
+                    <span class="badge-small" id="modal-badge"></span>
+                    <h2 id="modal-title" class="mb-2"></h2>
+                    <div class="modal-meta mt-2">
+                        <strong>수강 과목:</strong> <span id="modal-classes"></span>
+                    </div>
+                    <p id="modal-desc" class="story-text mt-4"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="board-form-overlay" class="board-form-overlay">
+        <div class="board-form-card glass-card">
+            <h2 id="form-title" class="section-title">새 글 쓰기</h2>
+            <form id="post-form" onsubmit="savePost(event)">
+                <input type="hidden" id="post-id">
+                <div class="form-group">
+                    <label for="post-title">제목</label>
+                    <input type="text" id="post-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="post-author">작성자</label>
+                    <input type="text" id="post-author" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="post-content">내용</label>
+                    <textarea id="post-content" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="form-group" style="display: flex; gap: 1rem; align-items: flex-end;">
+                    <div style="flex: 1;">
+                        <label for="post-password">비밀번호 (필수)</label>
+                        <input type="password" id="post-password" class="form-control" placeholder="삭제 시 필요" required>
+                    </div>
+                    <div style="flex: 1; padding-bottom: 0.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="post-private" style="width: 16px; height: 16px; accent-color: var(--samsung-light-blue);">
+                            <span style="color: var(--pure-white); font-weight: normal; font-size: 0.9rem;">비공개 글 (자물쇠)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="board-item-actions">
+                    <button type="button" class="btn-small" id="btn-cancel">취소</button>
+                    <button type="submit" class="btn-primary">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/features.js?v=1.2"></script>
+</body>
+</html>
