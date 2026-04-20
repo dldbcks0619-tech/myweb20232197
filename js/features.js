@@ -93,12 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 ` : '';
                 
+                const userVote = localStorage.getItem(`vote_${post.id}`); // 'up', 'down', or null
+
                 const actionsHtml = `
                     <div class="board-item-actions">
-                        ${isAdmin ? `<button class="btn-small" onclick="togglePin('${post.id}', ${!!post.is_pinned})" style="color: #ff4d4d;">${post.is_pinned ? '고정 해제' : '상단 고정'}</button>` : ''}
-                        <button class="btn-small" onclick="editPost('${post.id}')" style="color: #ffd700;">수정</button>
-                        <button class="btn-small" onclick="deletePost('${post.id}')" style="color: #ff4d4d;">삭제</button>
-                        ${isAdmin ? `<button class="btn-small btn-reply" onclick="adminReply(${post.id})">답글 달기</button>` : ''}
+                        <div class="vote-buttons">
+                            <button class="btn-vote ${userVote === 'up' ? 'active' : ''}" onclick="votePost('${post.id}', 'up')">👍 <span>${post.upvotes || 0}</span></button>
+                            <button class="btn-vote ${userVote === 'down' ? 'active' : ''}" onclick="votePost('${post.id}', 'down')">👎 <span>${post.downvotes || 0}</span></button>
+                        </div>
+                        <div class="edit-delete-actions">
+                            ${isAdmin ? `<button class="btn-small" onclick="togglePin('${post.id}', ${!!post.is_pinned})" style="color: #ff4d4d;">${post.is_pinned ? '고정 해제' : '상단 고정'}</button>` : ''}
+                            <button class="btn-small" onclick="editPost('${post.id}')" style="color: #ffd700;">수정</button>
+                            <button class="btn-small" onclick="deletePost('${post.id}')" style="color: #ff4d4d;">삭제</button>
+                            ${isAdmin ? `<button class="btn-small btn-reply" onclick="adminReply(${post.id})">답글 달기</button>` : ''}
+                        </div>
                     </div>
                 `;
 
@@ -131,6 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('post-title').value;
         const author = document.getElementById('post-author').value;
         const content = document.getElementById('post-content').value;
+
+        // Restriction: Only admin can use the name "관리자"
+        if (author.trim() === '관리자' && !isAdmin) {
+            alert('🚨 "관리자" 이름은 관리자 모드에서만 사용 가능합니다.\n다른 닉네임을 사용해주세요.');
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+            return;
+        }
+
         const password = document.getElementById('post-password').value;
         const isPrivate = document.getElementById('post-private').checked;
         const date = new Date().toISOString().split('T')[0];
@@ -250,6 +267,48 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('Supabase Reply Error:', e);
             alert('답글 저장 중 오류가 발생했습니다. (Supabase 컬럼 확인 필요)');
+        }
+    };
+
+    window.votePost = async (id, type) => {
+        try {
+            const post = posts.find(p => p.id == id);
+            if (!post) return;
+
+            const storageKey = `vote_${id}`;
+            const currentVote = localStorage.getItem(storageKey); // 'up', 'down', or null
+            
+            let updateData = {};
+
+            if (currentVote === type) {
+                // Toggle OFF: Same button clicked again
+                const column = type === 'up' ? 'upvotes' : 'downvotes';
+                updateData[column] = Math.max(0, (post[column] || 0) - 1);
+                localStorage.removeItem(storageKey);
+            } else if (currentVote) {
+                // Swap: Different button clicked
+                const oldColumn = currentVote === 'up' ? 'upvotes' : 'downvotes';
+                const newColumn = type === 'up' ? 'upvotes' : 'downvotes';
+                updateData[oldColumn] = Math.max(0, (post[oldColumn] || 0) - 1);
+                updateData[newColumn] = (post[newColumn] || 0) + 1;
+                localStorage.setItem(storageKey, type);
+            } else {
+                // New Vote
+                const column = type === 'up' ? 'upvotes' : 'downvotes';
+                updateData[column] = (post[column] || 0) + 1;
+                localStorage.setItem(storageKey, type);
+            }
+
+            const { error } = await _supabase
+                .from('posts')
+                .update(updateData)
+                .eq('id', id);
+
+            if (error) throw error;
+            loadPosts(); // Refresh
+        } catch (e) {
+            console.error('Supabase Vote Error:', e);
+            alert('추천/비추천 처리 중 오류가 발생했습니다.');
         }
     };
 

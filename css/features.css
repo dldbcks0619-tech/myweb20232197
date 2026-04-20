@@ -113,8 +113,48 @@
 
 .board-item-actions {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vote-buttons {
+    display: flex;
     gap: 0.5rem;
-    justify-content: flex-end;
+}
+
+.btn-vote {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-vote:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--samsung-light-blue);
+    color: var(--pure-white);
+}
+
+.btn-vote.active {
+    background: rgba(20, 115, 230, 0.2);
+    border-color: var(--samsung-light-blue);
+    color: var(--samsung-light-blue);
+}
+
+.btn-vote span {
+    font-weight: bold;
+}
+
+.edit-delete-actions {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .btn-small {
