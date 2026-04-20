@@ -94,7 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.innerHTML = `
                     <div class="board-item-header">
                         <span class="board-item-title">${lockHtml}${post.title}</span>
-                        <span class="board-item-meta">${post.author} | ${post.date}</span>
+                        <div class="post-meta">
+                            <span class="post-author">${post.author}</span>
+                            <span class="post-date">${post.date}${post.is_edited ? ' <small>(수정됨)</small>' : ''}</span>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <button class="btn-text" onclick="editPost('${post.id}')" style="font-size: 0.75rem; color: var(--gold);">수정</button>
+                                <button class="btn-text" onclick="deletePost('${post.id}')" style="font-size: 0.75rem; color: #ff4d4d;">삭제</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="board-item-content">${post.content}</div>
                     ${replyHtml}
@@ -127,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (id) {
                 const { error } = await _supabase
                     .from('posts')
-                    .update({ title, author, content, password, is_private: isPrivate })
+                    .update({ title, author, content, password, is_private: isPrivate, is_edited: true })
                     .eq('id', id);
                 if (error) throw error;
             } else {
@@ -284,6 +291,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    window.editPost = async (id) => {
+        const post = posts.find(p => p.id === id);
+        if (!post) return;
+
+        if (!isAdmin) {
+            const inputPw = prompt('게시물 비밀번호를 입력해주세요.');
+            if (inputPw !== post.password) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+        }
+
+        // Populate form
+        document.getElementById('post-id').value = post.id;
+        document.getElementById('post-title').value = post.title;
+        document.getElementById('post-author').value = post.author;
+        document.getElementById('post-content').value = post.content;
+        document.getElementById('post-password').value = post.password;
+        document.getElementById('post-private').checked = post.is_private;
+        
+        document.getElementById('form-title').textContent = '게시물 수정';
+        formOverlay.style.display = 'flex';
+    };
 
     // Email Logic using AJAX via FormSubmit for seamless background sending
     const inquiryForm = document.getElementById('inquiry-form');
