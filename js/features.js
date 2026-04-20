@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
             [08221] 서울시 구로구 경인로 445 ([구]고척동 62-160) 동양미래대학교
         </div>
         <div class="footer-info">
-            <span><strong>Department :</strong> 로봇자동화공학부</span>
-            <span><strong>Tel :</strong> 010-3846-0536</span>
-            <span><strong>e-mail :</strong> dldbcks0619@naver.com</span>
+            <span><strong>Department:</strong> 로봇자동화공학부</span>
+            <span><strong>Tel:</strong> 010-3846-0536</span>
+            <span><strong>e-mail:</strong> dldbcks0619@naver.com</span>
         </div>
     `;
     document.body.appendChild(footer);
@@ -63,9 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        [...posts].forEach(post => {
+        // Pinning Sort: is_pinned DESC, then by original order (fetch has id DESC)
+        const sortedPosts = [...posts].sort((a, b) => {
+            const aPinned = a.is_pinned ? 1 : 0;
+            const bPinned = b.is_pinned ? 1 : 0;
+            if (aPinned !== bPinned) return bPinned - aPinned;
+            return 0; // Maintain fetched order (id DESC)
+        });
+
+        sortedPosts.forEach(post => {
             const item = document.createElement('div');
-            item.className = 'board-item';
+            item.className = `board-item ${post.is_pinned ? 'pinned' : ''}`;
 
             const isPrivate = post.is_private || post.isPrivate; // Support both naming conventions
             if (isPrivate && !isAdmin) {
@@ -77,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else {
                 const lockHtml = isPrivate ? '<span style="color: #ff9900; margin-right: 5px;">🔒 [비공개]</span>' : '';
+                const pinHtml = post.is_pinned ? '<span style="color: #ff4d4d; margin-right: 5px;">📌 [고정]</span>' : '';
                 const replyHtml = post.reply ? `
                     <div class="board-item-reply" style="margin-top: 1rem; padding: 1rem; background: rgba(20, 115, 230, 0.1); border-left: 3px solid var(--samsung-blue); border-radius: 4px;">
                         <div style="font-weight: bold; color: var(--samsung-light-blue); margin-bottom: 0.5rem;">[관리자 답글] <small style="color: #888; font-weight: normal;">${post.reply_date || ''}</small></div>
@@ -86,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const actionsHtml = `
                     <div class="board-item-actions">
+                        ${isAdmin ? `<button class="btn-small" onclick="togglePin('${post.id}', ${!!post.is_pinned})" style="color: #ff4d4d;">${post.is_pinned ? '고정 해제' : '상단 고정'}</button>` : ''}
                         <button class="btn-small" onclick="editPost('${post.id}')" style="color: #ffd700;">수정</button>
                         <button class="btn-small" onclick="deletePost('${post.id}')" style="color: #ff4d4d;">삭제</button>
                         ${isAdmin ? `<button class="btn-small btn-reply" onclick="adminReply(${post.id})">답글 달기</button>` : ''}
@@ -94,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 item.innerHTML = `
                     <div class="board-item-header">
-                        <span class="board-item-title">${lockHtml}${post.title}</span>
+                        <span class="board-item-title">${pinHtml}${lockHtml}${post.title}</span>
                         <div class="post-meta">
                             <span class="post-author">${post.author}</span>
                             <span class="post-date">${post.date}${post.is_edited ? ' <small style="opacity: 0.6;">(수정됨)</small>' : ''}</span>
@@ -141,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 const { error } = await _supabase
                     .from('posts')
-                    .insert([{ title, author, content, date, password, is_private: isPrivate }]);
+                    .insert([{ title, author, content, date, password, is_private: isPrivate, created_at: new Date().toISOString() }]);
                 if (error) throw error;
             }
             closeForm();
@@ -195,6 +205,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             alert('비밀번호가 일치하지 않습니다.');
+        }
+    };
+
+    window.togglePin = async (id, currentPinned) => {
+        if (!isAdmin) return;
+        
+        try {
+            const { error } = await _supabase
+                .from('posts')
+                .update({ is_pinned: !currentPinned })
+                .eq('id', id);
+
+            if (error) throw error;
+            loadPosts();
+        } catch (e) {
+            console.error('Supabase Pin Error:', e);
+            alert('상태 변경에 실패했습니다.');
         }
     };
 
@@ -288,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('관리자 모드가 활성화되었습니다.\n모든 비밀글을 볼 수 있고, 모든 글을 삭제할 수 있습니다.');
                     renderPosts();
                 } else if (pw !== null) {
-                    alert('비밀번호가 틀렸습니다.');
+                    alert('좋은 평가 부탁드립니다.');
                 }
             }
         });

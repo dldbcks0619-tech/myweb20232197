@@ -366,6 +366,30 @@ body {
 }
 .detail { color: var(--text-muted); }
 
+/* Footer Base Styles */
+.footer-contact {
+    padding: 3rem 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+.footer-address {
+    flex-shrink: 0;
+}
+.footer-info {
+    display: flex;
+    gap: 2rem;
+    white-space: nowrap;
+}
+.footer-info strong {
+    color: var(--text-main);
+}
+
 /* Responsive tweaks */
 @media (max-width: 900px) {
     .container { padding: 0 1rem; }
@@ -401,12 +425,36 @@ body {
     .roadmap-node { left: 12px; transform: translateY(-50%); width: 24px; height: 24px; font-size: 0.75rem; }
     .roadmap-step, .roadmap-step.left { flex-direction: column; align-items: flex-start; padding-left: 35px; margin-bottom: 1.5rem; }
     .roadmap-step .roadmap-content { width: 100%; padding: 0.8rem; }
+
+    /* Footer Responsive Fix */
+    .footer-contact {
+        padding: 2.5rem 1.5rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    .footer-address {
+        word-break: keep-all;
+        line-height: 1.5;
+    }
+    .footer-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        white-space: normal;
+    }
 }
 
 @media (max-width: 600px) {
     .slogan { font-size: 1.4rem; }
-    .splash-quote { font-size: 1.1rem; }
-    .splash-name { font-size: 1.6rem; margin-top: 1rem; }
+    .splash-quote { font-size: 1rem; }
+    .splash-name { font-size: 1.5rem; }
+    
+    .logo { gap: 0.5rem; }
+    .logo-samsung { font-size: 1.2rem; }
+    .logo-role { font-size: 0.8rem; }
+    
+    .section { padding-top: 5rem; }
     .badge-text { font-size: 0.85rem; }
     .badge-icon { width: 28px; height: 28px; font-size: 1rem; }
     .chart-wrapper { height: 220px; }
