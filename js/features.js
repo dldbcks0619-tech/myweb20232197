@@ -357,6 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeForm() {
         formOverlay.style.display = 'none';
         postForm.reset();
+        if (document.getElementById('post-id')) document.getElementById('post-id').value = '';
+        if (document.getElementById('post-password')) document.getElementById('post-password').value = '';
+        if (document.getElementById('post-private')) document.getElementById('post-private').checked = false;
         if (document.getElementById('post-pinned')) document.getElementById('post-pinned').checked = false;
         if (document.getElementById('pin-order')) document.getElementById('pin-order').value = '1';
         if (document.getElementById('pin-order-wrap')) document.getElementById('pin-order-wrap').style.display = 'none';
@@ -365,6 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
         postForm.querySelector('button[type="submit"]').textContent = '저장하기';
     }
 
+    if (btnNewPost) {
+        btnNewPost.addEventListener('click', () => {
             // Show admin controls only in admin mode
             const adminControls = document.querySelectorAll('.admin-only');
             adminControls.forEach(ctrl => ctrl.style.display = isAdmin ? 'flex' : 'none');
