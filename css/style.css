@@ -375,9 +375,9 @@ body {
 }
 
 @media (max-width: 768px) {
-    .sincerity-banner { padding: 1.5rem; }
-    .sincerity-content h3 { font-size: 1.2rem; }
-    .sincerity-content p { font-size: 0.9rem; }
+    .sincerity-banner { padding: 1.2rem; margin-top: 1.5rem; }
+    .sincerity-content h3 { font-size: 1.05rem; line-height: 1.4; }
+    .sincerity-content p { font-size: 0.85rem; line-height: 1.5; }
 }
 
 /* Curriculum Roadmap */
@@ -554,18 +554,24 @@ body {
 
 @media (max-width: 600px) {
     .slogan { font-size: 1.4rem; }
-    .splash-quote { font-size: 1rem; }
-    .splash-name { font-size: 1.5rem; }
+    .splash-quote { font-size: 0.95rem; line-height: 1.4; }
+    .splash-name { font-size: 1.4rem; }
     
-    .logo { gap: 0.5rem; }
-    .logo-samsung { font-size: 1.2rem; }
-    .logo-role { font-size: 0.8rem; }
+    .logo { gap: 0.3rem; }
+    .logo-samsung { font-size: 1.1rem; }
+    .logo-role { display: none; } /* Hide ID on very small screens to save space */
     
-    .section { padding-top: 5rem; }
-    .badge-text { font-size: 0.85rem; }
-    .badge-icon { width: 28px; height: 28px; font-size: 1rem; }
-    .chart-wrapper { height: 220px; }
-    .modal-content { padding: 1.25rem; }
+    .section { padding-top: 4.5rem; }
+    .section-title { font-size: 1.4rem; margin-bottom: 1.5rem; }
+    
+    .badge-text { font-size: 0.8rem; }
+    .badge-icon { width: 24px; height: 24px; font-size: 0.9rem; }
+    .chart-wrapper { height: 200px; }
+    .modal-content { padding: 1rem; }
+    
+    /* Roadmap Mobile Polish */
+    .roadmap-step .roadmap-content h3 { font-size: 1rem; }
+    .guide-text { font-size: 0.75rem !important; }
 }
 
 /* Modal Styles */
@@ -620,6 +626,30 @@ body {
 .degree-card { cursor: pointer; }
 
 @media (max-width: 768px) {
+    .container { padding: 0 1rem; }
+    .section { padding-top: 4rem; padding-bottom: 2rem; }
+    
+    /* Navbar Mobile */
+    .nav-container { padding: 0.5rem 1rem; }
+    .nav-menu { 
+        gap: 0.5rem; 
+        overflow-x: auto; 
+        padding-bottom: 5px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .nav-link { 
+        padding: 0.4rem 0.8rem; 
+        font-size: 0.85rem; 
+        white-space: nowrap; 
+    }
+    
+    /* Roadmap Mobile */
+    .roadmap-track { left: 20px; transform: none; }
+    .roadmap-step { justify-content: flex-start; padding-left: 45px; }
+    .roadmap-step.left { flex-direction: row; }
+    .roadmap-step .roadmap-content { width: 100%; margin-left: 0; }
+    .roadmap-node { left: 20px; transform: translate(-50%, -50%); }
+
     .modal-grid { grid-template-columns: 1fr; gap: 1rem; }
     .modal-image { max-height: 180px; }
     .modal-content { padding: 1.5rem; width: 95%; max-width: none; }

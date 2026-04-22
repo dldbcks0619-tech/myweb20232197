@@ -280,19 +280,42 @@
     gap: 3rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .inquiry-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
     .footer-contact {
+        position: relative; /* Change from fixed to avoid covering content on small screens */
         flex-direction: column;
-        gap: 5px;
-        padding: 10px;
+        gap: 12px;
+        padding: 1.5rem 1rem;
         text-align: center;
+        height: auto;
     }
     .footer-info {
-        gap: 10px;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+    .footer-address {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+    .board-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .board-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .board-item {
+        padding: 1rem;
+    }
+    .board-item-header {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
 
