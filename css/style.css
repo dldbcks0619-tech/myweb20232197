@@ -554,8 +554,20 @@ body {
 
 @media (max-width: 600px) {
     .slogan { font-size: 1.4rem; }
-    .splash-quote { font-size: 0.95rem; line-height: 1.4; }
-    .splash-name { font-size: 1.4rem; }
+    .splash-content { padding: 1.5rem; width: 100%; box-sizing: border-box; }
+    .splash-quote { 
+        font-size: 0.9rem; 
+        line-height: 1.6; 
+        margin: 0 auto;
+        max-width: 280px;
+        word-break: keep-all; /* Better for Korean readability */
+    }
+    .splash-name { 
+        font-size: 1.25rem; 
+        line-height: 1.5;
+        margin-top: 1rem;
+        word-break: keep-all;
+    }
     
     .logo { 
         gap: 0.3rem; 
