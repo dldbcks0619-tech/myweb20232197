@@ -557,9 +557,13 @@ body {
     .splash-quote { font-size: 0.95rem; line-height: 1.4; }
     .splash-name { font-size: 1.4rem; }
     
-    .logo { gap: 0.3rem; }
+    .logo { 
+        gap: 0.3rem; 
+        justify-content: center;
+        width: 100%;
+    }
     .logo-samsung { font-size: 1.1rem; }
-    .logo-role { display: none; } /* Hide ID on very small screens to save space */
+    .logo-role { display: none; }
     
     .section { padding-top: 4.5rem; }
     .section-title { font-size: 1.4rem; margin-bottom: 1.5rem; }
@@ -627,20 +631,33 @@ body {
 
 @media (max-width: 768px) {
     .container { padding: 0 1rem; }
-    .section { padding-top: 4rem; padding-bottom: 2rem; }
+    .section { padding-top: 2rem; padding-bottom: 2rem; }
     
     /* Navbar Mobile */
-    .nav-container { padding: 0.5rem 1rem; }
+    .nav-container { 
+        height: auto; 
+        flex-direction: column; 
+        padding: 0.8rem 0; 
+        gap: 0.8rem;
+    }
     .nav-menu { 
+        width: 100%;
+        justify-content: flex-start;
         gap: 0.5rem; 
         overflow-x: auto; 
-        padding-bottom: 5px;
+        padding: 0 1rem 8px 1rem;
         -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap; /* Prevent wrapping to keep navbar height consistent */
     }
     .nav-link { 
-        padding: 0.4rem 0.8rem; 
-        font-size: 0.85rem; 
+        padding: 0.4rem 0.6rem; 
+        font-size: 0.8rem; 
         white-space: nowrap; 
+    }
+    
+    .main-content {
+        margin-top: 110px; /* Adjusted for the stacked mobile navbar */
+        min-height: calc(100vh - 110px);
     }
     
     /* Roadmap Mobile */
