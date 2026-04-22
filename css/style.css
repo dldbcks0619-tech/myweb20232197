@@ -323,6 +323,63 @@ body {
 .typing-code .string { color: #a5d6ff; }
 .typing-code .number { color: #79c0ff; }
 
+/* Sincerity Banner Styling (Home Section) */
+.sincerity-banner {
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.15), rgba(20, 115, 230, 0.05));
+    border: 1px solid var(--glass-border);
+    border-left: 5px solid var(--samsung-light-blue);
+    border-radius: 15px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.sincerity-banner:hover {
+    transform: translateY(-5px);
+    border-color: var(--samsung-light-blue);
+}
+
+.sincerity-banner::after {
+    content: 'SINCERITY';
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sincerity-content {
+    position: relative;
+    z-index: 1;
+}
+
+.sincerity-content h3 {
+    font-size: 1.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.sincerity-content p {
+    color: var(--text-main);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.sincerity-content strong {
+    color: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .sincerity-banner { padding: 1.5rem; }
+    .sincerity-content h3 { font-size: 1.2rem; }
+    .sincerity-content p { font-size: 0.9rem; }
+}
+
 /* Curriculum Roadmap */
 .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
 .roadmap-track { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(20, 115, 230, 0.3); transform: translateX(-50%); }
@@ -337,6 +394,47 @@ body {
 .roadmap-step .roadmap-content:hover {
     transform: scale(1.02); box-shadow: 0 0 20px rgba(20, 115, 230, 0.2);
 }
+.roadmap-step .roadmap-content.clickable-year {
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    animation: floatCard 4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+.roadmap-step:nth-child(2) .clickable-year { --delay: 0.5s; }
+.roadmap-step:nth-child(3) .clickable-year { --delay: 1s; }
+.roadmap-step:nth-child(4) .clickable-year { --delay: 1.5s; }
+
+.roadmap-step .roadmap-content.clickable-year:hover {
+    transform: translateY(-12px) scale(1.02);
+    border-color: var(--samsung-light-blue);
+    box-shadow: 0 20px 40px rgba(20, 115, 230, 0.3), 0 0 20px rgba(20, 115, 230, 0.2);
+    background: rgba(3, 78, 162, 0.15);
+    animation-play-state: paused;
+}
+
+.guide-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.3s;
+}
+
+.guide-arrow {
+    display: inline-block;
+    animation: arrowSide 1.5s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes arrowSide {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
 .roadmap-node {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
     width: 30px; height: 30px; border-radius: 50%;
@@ -350,6 +448,15 @@ body {
 .tag {
     background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-main); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.tag.subject-tag:hover {
+    background: var(--samsung-light-blue);
+    border-color: var(--pure-white);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(20, 115, 230, 0.5);
+    color: white;
 }
 
 /* Timeline */

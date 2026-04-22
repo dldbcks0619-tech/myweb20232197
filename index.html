@@ -67,7 +67,7 @@
                         <div class="badge-container">
                             <div class="gold-badge">
                                 <div class="badge-icon">★</div>
-                                <div class="badge-text">3년 연속 창의적공학설계 수상<br><small>2023, 2026~2027</small></div>
+                                <div class="badge-text">3년 연속 창의적공학설계 수상<br><small>2023, 2025~2026</small></div>
                             </div>
                         </div>
                         <h2 class="section-title">The Growth Story</h2>
@@ -82,6 +82,14 @@
                             <canvas id="growthChart"></canvas>
                         </div>
                         <p class="chart-caption text-center">"기술적 패기가 만든 J커브의 증명"</p>
+                    </div>
+                </div>
+
+                <div class="sincerity-banner mt-6">
+                    <div class="sincerity-content">
+                        <span class="badge-small">CORE VALUE</span>
+                        <h3 class="highlight-gold">"기술은 가르칠 수 있지만, 성실함은 삶의 궤적이 증명합니다"</h3>
+                        <p class="mt-2">1학년의 부진을 딛고 일어선 <strong>J커브의 성장 곡선</strong>, 3년 연속 설계 공모전 수상, 그리고 무지각/무결석의 기록들은 제가 가진 가장 큰 자산인 '성실함'을 증명합니다. 삼성의 무결성 라인을 지키는 힘은 바로 이 변치 않는 성실함에서 시작됩니다.</p>
                     </div>
                 </div>
             </div>
@@ -220,7 +228,7 @@
                     
                     <div class="roadmap-step left">
                         <div class="roadmap-node">1</div>
-                        <div class="roadmap-content glass-card">
+                        <div class="roadmap-content glass-card clickable-year" data-year="1">
                             <h3 class="highlight-gold">1학년: 기초 로봇 공학 및 설계 입문</h3>
                             <div class="subject-tags mt-2">
                                 <span class="tag">엔지니어링기초</span>
@@ -229,13 +237,16 @@
                                 <span class="tag">전기회로 및 실습</span>
                                 <span class="tag">창의적공학설계(캡스톤디자인)</span>
                             </div>
-                            <p class="mt-2 text-sm" style="color:var(--text-muted)">로봇 공학의 기초 이론과 설계 도구 활용 능력을 배양하며 엔지니어링 마인드를 확립한 시기.</p>
+                            <p class="mt-2 text-sm guide-text" style="color:var(--text-muted)">
+                                <span>클릭하여 1학년 핵심 요약 보기</span>
+                                <span class="guide-arrow">→</span>
+                            </p>
                         </div>
                     </div>
 
                     <div class="roadmap-step right">
                         <div class="roadmap-node">2</div>
-                        <div class="roadmap-content glass-card">
+                        <div class="roadmap-content glass-card clickable-year" data-year="2">
                             <h3 class="highlight-gold">2학년: 로봇 제어 및 프로그래밍 심화</h3>
                             <div class="subject-tags mt-2">
                                 <span class="tag">파이썬프로그래밍</span>
@@ -246,13 +257,16 @@
                                 <span class="tag">웹프로그래밍</span>
                                 <span class="tag">영어회화(교양)</span>
                             </div>
-                            <p class="mt-2 text-sm" style="color:var(--text-muted)">다양한 언어와 플랫폼을 활용한 로봇 제어 소프트웨어 개발 역량을 집중적으로 강화한 시기.</p>
+                            <p class="mt-2 text-sm guide-text" style="color:var(--text-muted)">
+                                <span>클릭하여 2학년 핵심 요약 보기</span>
+                                <span class="guide-arrow">→</span>
+                            </p>
                         </div>
                     </div>
 
                     <div class="roadmap-step left">
                         <div class="roadmap-node">3</div>
-                        <div class="roadmap-content glass-card">
+                        <div class="roadmap-content glass-card clickable-year" data-year="3">
                             <h3 class="highlight-gold">3학년: 산업용 제어 및 실무 통합 (Advanced)</h3>
                             <div class="subject-tags mt-2">
                                 <span class="tag">PLC프로그래밍</span>
@@ -261,7 +275,10 @@
                                 <span class="tag">현장실습</span>
                                 <span class="tag">창의적공학설계 (종합)</span>
                             </div>
-                            <p class="mt-2 text-sm" style="color:var(--text-muted)">산업 현장에서 즉각 활용 가능한 실무 제어 로직과 전문 직무 역량을 완성하는 단계.</p>
+                            <p class="mt-2 text-sm guide-text" style="color:var(--text-muted)">
+                                <span>클릭하여 3학년 핵심 요약 보기</span>
+                                <span class="guide-arrow">→</span>
+                            </p>
                         </div>
                     </div>
 
@@ -379,9 +396,16 @@
             <div class="glass-card full-card">
                 <div class="board-header">
                     <h2 class="section-title">Free Board: 소통의 공간</h2>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn-small" onclick="loadPosts()" style="height: 42px;">새로고침</button>
-                        <button class="btn-primary" id="btn-new-post">새 글 쓰기</button>
+                    <div class="board-controls">
+                        <div class="sort-options">
+                            <button class="sort-btn active" data-sort="newest">최신순</button>
+                            <button class="sort-btn" data-sort="upvotes">추천순</button>
+                            <button class="sort-btn" data-sort="downvotes">비추천순</button>
+                        </div>
+                        <div class="board-actions">
+                            <button class="btn-small" onclick="loadPosts()" style="height: 42px;">새로고침</button>
+                            <button class="btn-primary" id="btn-new-post">새 글 쓰기</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -437,9 +461,6 @@
                 <div class="modal-text">
                     <span class="badge-small" id="modal-badge"></span>
                     <h2 id="modal-title" class="mb-2"></h2>
-                    <div class="modal-meta mt-2">
-                        <strong>수강 과목:</strong> <span id="modal-classes"></span>
-                    </div>
                     <p id="modal-desc" class="story-text mt-4"></p>
                 </div>
             </div>
@@ -473,6 +494,16 @@
                             <input type="checkbox" id="post-private" style="width: 16px; height: 16px; accent-color: var(--samsung-light-blue);">
                             <span style="color: var(--pure-white); font-weight: normal; font-size: 0.9rem;">비공개 글 (자물쇠)</span>
                         </label>
+                    </div>
+                </div>
+                <div class="admin-only" style="display: none; align-items: center; gap: 1.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" id="post-pinned" style="width: 16px; height: 16px; accent-color: #ff4d4d;">
+                        <span style="color: #ff4d4d; font-weight: bold; font-size: 0.9rem;">📌 게시판 상단 고정</span>
+                    </label>
+                    <div id="pin-order-wrap" style="display: none; align-items: center; gap: 0.5rem;">
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">고정 순서:</span>
+                        <input type="number" id="pin-order" value="1" min="1" max="10" style="width: 50px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: white; border-radius: 4px; padding: 4px 8px; font-size: 0.9rem;">
                     </div>
                 </div>
                 <div class="board-item-actions">

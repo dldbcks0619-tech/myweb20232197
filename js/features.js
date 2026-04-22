@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let posts = [];
+    let currentSort = 'newest';
 
     // Load posts from Supabase
     const loadPosts = window.loadPosts = async () => {
@@ -58,17 +59,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!boardList) return;
         boardList.innerHTML = '';
         
+        // Sorting Logic
+        let sortedPosts = [...posts];
+
         if (posts.length === 0) {
             boardList.innerHTML = '<div style="text-align:center; padding: 3rem; color: #888;">작성된 게시글이 없습니다. 첫 글을 남겨주세요!</div>';
             return;
         }
+        
+        if (currentSort === 'upvotes') {
+            sortedPosts.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
+        } else if (currentSort === 'downvotes') {
+            sortedPosts.sort((a, b) => (b.downvotes || 0) - (a.downvotes || 0));
+        } else {
+            // Newest (Default) - Fetch has id DESC
+        }
 
-        // Pinning Sort: is_pinned DESC, then by original order (fetch has id DESC)
-        const sortedPosts = [...posts].sort((a, b) => {
+        // Pinning Sort: is_pinned DESC, then pin_order ASC, then fallback
+        sortedPosts.sort((a, b) => {
             const aPinned = a.is_pinned ? 1 : 0;
             const bPinned = b.is_pinned ? 1 : 0;
             if (aPinned !== bPinned) return bPinned - aPinned;
-            return 0; // Maintain fetched order (id DESC)
+            
+            if (a.is_pinned && b.is_pinned) {
+                return (a.pin_order || 99) - (b.pin_order || 99);
+            }
+            return 0;
         });
 
         sortedPosts.forEach(post => {
@@ -152,6 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPrivate = document.getElementById('post-private').checked;
         const date = new Date().toISOString().split('T')[0];
 
+        const isPinned = document.getElementById('post-pinned') ? document.getElementById('post-pinned').checked : false;
+        const pinOrder = document.getElementById('pin-order') ? parseInt(document.getElementById('pin-order').value) : 1;
+
         try {
             if (id) {
                 const oldPost = posts.find(p => p.id == id);
@@ -160,15 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const updateData = { title, author, content, password, is_private: isPrivate };
                 if (hasChanged) updateData.is_edited = true;
 
+                // Admin specific fields
+                if (isAdmin) {
+                    updateData.is_pinned = isPinned;
+                    updateData.pin_order = pinOrder;
+                }
+
                 const { error } = await _supabase
                     .from('posts')
                     .update(updateData)
                     .eq('id', id);
                 if (error) throw error;
             } else {
+                const insertData = { title, author, content, date, password, is_private: isPrivate, created_at: new Date().toISOString() };
+                if (isAdmin) {
+                    insertData.is_pinned = isPinned;
+                    insertData.pin_order = pinOrder;
+                }
+
                 const { error } = await _supabase
                     .from('posts')
-                    .insert([{ title, author, content, date, password, is_private: isPrivate, created_at: new Date().toISOString() }]);
+                    .insert([insertData]);
                 if (error) throw error;
             }
             closeForm();
@@ -326,16 +357,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeForm() {
         formOverlay.style.display = 'none';
         postForm.reset();
-        document.getElementById('post-id').value = '';
-        document.getElementById('post-password').value = '';
-        document.getElementById('post-private').checked = false;
+        if (document.getElementById('post-pinned')) document.getElementById('post-pinned').checked = false;
+        if (document.getElementById('pin-order')) document.getElementById('pin-order').value = '1';
+        if (document.getElementById('pin-order-wrap')) document.getElementById('pin-order-wrap').style.display = 'none';
+        
         document.getElementById('form-title').textContent = '새 글 쓰기';
         postForm.querySelector('button[type="submit"]').textContent = '저장하기';
     }
 
-    if (btnNewPost) {
-        btnNewPost.addEventListener('click', () => {
+            // Show admin controls only in admin mode
+            const adminControls = document.querySelectorAll('.admin-only');
+            adminControls.forEach(ctrl => ctrl.style.display = isAdmin ? 'flex' : 'none');
+            
             formOverlay.style.display = 'flex';
+        });
+    }
+
+    const pinCheckbox = document.getElementById('post-pinned');
+    if (pinCheckbox) {
+        pinCheckbox.addEventListener('change', () => {
+            const wrap = document.getElementById('pin-order-wrap');
+            if (wrap) wrap.style.display = pinCheckbox.checked ? 'flex' : 'none';
         });
     }
 
@@ -400,6 +442,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('post-password').value = post.password;
         document.getElementById('post-private').checked = post.is_private;
         
+        if (isAdmin) {
+            const pinCheck = document.getElementById('post-pinned');
+            const pinOrderInput = document.getElementById('pin-order');
+            const pinOrderWrap = document.getElementById('pin-order-wrap');
+            if (pinCheck) pinCheck.checked = post.is_pinned;
+            if (pinOrderInput) pinOrderInput.value = post.pin_order || 1;
+            if (pinOrderWrap) pinOrderWrap.style.display = post.is_pinned ? 'flex' : 'none';
+            
+            const adminControls = document.querySelectorAll('.admin-only');
+            adminControls.forEach(ctrl => ctrl.style.display = 'flex');
+        } else {
+            const adminControls = document.querySelectorAll('.admin-only');
+            adminControls.forEach(ctrl => ctrl.style.display = 'none');
+        }
+
         document.getElementById('form-title').textContent = '게시물 수정';
         postForm.querySelector('button[type="submit"]').textContent = '수정 완료';
         formOverlay.style.display = 'flex';
@@ -484,4 +541,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 300);
         });
     }
+
+    // Sort Button Event Listeners
+    const sortButtons = document.querySelectorAll('.sort-btn');
+    sortButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            sortButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSort = btn.getAttribute('data-sort');
+            renderPosts();
+        });
+    });
 });
