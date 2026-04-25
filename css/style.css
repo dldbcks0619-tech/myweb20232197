@@ -68,7 +68,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -98,18 +98,18 @@ body {
 .nav-menu {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem; /* Reduced gap to prevent overflow */
 }
 
 .nav-link {
     background: none;
     border: none;
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Reduced slightly */
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.6rem; /* Reduced padding */
     position: relative;
     white-space: nowrap;
 }

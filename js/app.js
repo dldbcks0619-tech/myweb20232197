@@ -179,9 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('active');
     }
 
-    masteryCards.forEach((card, index) => {
+    masteryCards.forEach((card) => {
         card.addEventListener('click', () => {
-            const courseId = (index + 1).toString().padStart(2, '0');
+            const courseId = card.getAttribute('data-course');
+            if (!courseId) return;
             const data = courseData[courseId];
             openModal(data, courseId);
         });
