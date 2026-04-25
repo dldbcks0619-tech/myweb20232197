@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="edit-delete-actions">
                             ${isAdmin ? `<button class="btn-small" onclick="togglePin('${post.id}', ${!!post.is_pinned})" style="color: #ff4d4d;">${post.is_pinned ? '고정 해제' : '상단 고정'}</button>` : ''}
+                            ${isAdmin ? `<button class="btn-small" onclick="adminEditPinOrder('${post.id}')" style="color: #ff9900;">고정순서</button>` : ''}
                             ${isAdmin ? `<button class="btn-small" onclick="adminEditVotes('${post.id}')" style="color: #4cd964;">투표수 수정</button>` : ''}
                             <button class="btn-small" onclick="editPost('${post.id}')" style="color: #ffd700;">수정</button>
                             <button class="btn-small" onclick="deletePost('${post.id}')" style="color: #ff4d4d;">삭제</button>
@@ -372,6 +373,30 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('Admin Vote Edit Error:', e);
             alert('투표수 변경 중 오류가 발생했습니다.');
+        }
+    };
+
+    window.adminEditPinOrder = async (id) => {
+        if (!isAdmin) return;
+        const post = posts.find(p => p.id == id);
+        if (!post) return;
+
+        const newOrder = prompt('고정 순서를 입력하세요 (1이 가장 위, 숫자가 작을수록 우선순위가 높습니다):', post.pin_order || 1);
+        if (newOrder === null) return;
+
+        try {
+            const order = parseInt(newOrder, 10) || 1;
+            
+            const { error } = await _supabase
+                .from('posts')
+                .update({ pin_order: order, is_pinned: true })
+                .eq('id', id);
+
+            if (error) throw error;
+            loadPosts(); 
+        } catch (e) {
+            console.error('Admin Pin Order Edit Error:', e);
+            alert('고정 순서 변경 중 오류가 발생했습니다.');
         }
     };
 
