@@ -164,7 +164,7 @@ async function fetchFromAIAPI(query) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message: query })
+            body: JSON.stringify({ query: query })
         });
 
         const data = await response.json();
@@ -173,8 +173,8 @@ async function fetchFromAIAPI(query) {
             return `[서버 통신 오류] ${data.error || response.statusText}`;
         }
         
-        if (data.reply) {
-            return data.reply;
+        if (data.answer) {
+            return data.answer;
         } else {
             return `[응답 오류] 알 수 없는 데이터 구조입니다.`;
         }
