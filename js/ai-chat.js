@@ -77,7 +77,8 @@ function appendMessage(text, sender) {
     
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
-    contentDiv.textContent = text;
+    // DB에서 들어온 순수 문자열 '\n'을 실제 줄바꿈 문자로 변환
+    contentDiv.textContent = text.replace(/\\n/g, '\n');
     contentDiv.style.whiteSpace = 'pre-wrap'; // 줄바꿈(엔터) 렌더링 지원
     
     msgDiv.appendChild(contentDiv);
