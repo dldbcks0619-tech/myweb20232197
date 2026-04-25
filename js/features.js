@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sortedPosts.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
         } else if (currentSort === 'downvotes') {
             sortedPosts.sort((a, b) => (b.downvotes || 0) - (a.downvotes || 0));
+        } else if (currentSort === 'oldest') {
+            sortedPosts.sort((a, b) => a.id - b.id);
         } else {
-            // Newest (Default) - Fetch has id DESC
+            // Newest (Default) - Fetch has id DESC, but we sort explicitly just in case
+            sortedPosts.sort((a, b) => b.id - a.id);
         }
 
         // Pinning Sort: is_pinned DESC, then pin_order ASC, then fallback
@@ -119,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="edit-delete-actions">
                             ${isAdmin ? `<button class="btn-small" onclick="togglePin('${post.id}', ${!!post.is_pinned})" style="color: #ff4d4d;">${post.is_pinned ? '고정 해제' : '상단 고정'}</button>` : ''}
+                            ${isAdmin ? `<button class="btn-small" onclick="adminEditVotes('${post.id}')" style="color: #4cd964;">투표수 수정</button>` : ''}
                             <button class="btn-small" onclick="editPost('${post.id}')" style="color: #ffd700;">수정</button>
                             <button class="btn-small" onclick="deletePost('${post.id}')" style="color: #ff4d4d;">삭제</button>
                             ${isAdmin ? `<button class="btn-small btn-reply" onclick="adminReply(${post.id})">답글 달기</button>` : ''}
@@ -340,6 +344,34 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('Supabase Vote Error:', e);
             alert('추천/비추천 처리 중 오류가 발생했습니다.');
+        }
+    };
+
+    window.adminEditVotes = async (id) => {
+        if (!isAdmin) return;
+        const post = posts.find(p => p.id == id);
+        if (!post) return;
+
+        const newUpvotes = prompt('추천 수를 입력하세요:', post.upvotes || 0);
+        if (newUpvotes === null) return;
+        
+        const newDownvotes = prompt('비추천 수를 입력하세요:', post.downvotes || 0);
+        if (newDownvotes === null) return;
+
+        try {
+            const up = parseInt(newUpvotes, 10) || 0;
+            const down = parseInt(newDownvotes, 10) || 0;
+            
+            const { error } = await _supabase
+                .from('posts')
+                .update({ upvotes: up, downvotes: down })
+                .eq('id', id);
+
+            if (error) throw error;
+            loadPosts(); // UI 바로 새로고침
+        } catch (e) {
+            console.error('Admin Vote Edit Error:', e);
+            alert('투표수 변경 중 오류가 발생했습니다.');
         }
     };
 
