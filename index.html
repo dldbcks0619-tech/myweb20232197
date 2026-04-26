@@ -80,8 +80,9 @@
                         </ul>
                     </div>
                     <div class="chart-content">
-                        <div class="chart-wrapper">
-                            <canvas id="growthChart"></canvas>
+                        <div class="chart-wrapper" style="position: relative; overflow: hidden; border-radius: 8px;">
+                            <div class="chart-bg-anim"></div>
+                            <canvas id="growthChart" style="position: relative; z-index: 2;"></canvas>
                         </div>
                         <p class="chart-caption text-center">"기술적 패기가 만든 J커브의 증명"</p>
                     </div>
@@ -100,18 +101,20 @@
         <!-- SECTION 2: Creative Design -->
         <section id="creative" class="section">
             <div class="card-grid-2">
-                <div class="glass-card flex-col">
-                    <div class="card-header">
-                        <span class="badge-small">Foundation</span>
-                        <h2 class="section-title">1학년: 기술적 조기 발굴</h2>
+                <div class="glass-card flex-col" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="card-header">
+                            <span class="badge-small">Foundation</span>
+                            <h2 class="section-title">1학년: 기술적 조기 발굴</h2>
+                        </div>
+                        <div class="desc-content">
+                            <p><strong>주제:</strong> 기초 기구 설계 및 문제 해결<br>
+                            <strong>성과:</strong> 창의적공학설계 Foundation 트랙 수상</p>
+                            <p class="story-text">이 초기 성과가 엔지니어링에 대한 흥미와 패기를 불태우는 기폭제가 되었습니다.</p>
+                        </div>
                     </div>
-                    <div class="image-wrapper foundation-img">
-                        <img src="assets/image_3.png" alt="1학년 기초 기구 설계 작품" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlZWVlZWUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzk5OTk5OSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+YXNzZXRzL2ltYWdlXzMucG5nIChQbGFjZWhvbGRlcik8L3RleHQ+PC9zdmc+'" />
-                    </div>
-                    <div class="desc-content">
-                        <p><strong>주제:</strong> 기초 기구 설계 및 문제 해결<br>
-                        <strong>성과:</strong> 창의적공학설계 Foundation 트랙 수상</p>
-                        <p class="story-text">이 초기 성과가 엔지니어링에 대한 흥미와 패기를 불태우는 기폭제가 되었습니다.</p>
+                    <div class="image-wrapper foundation-img mt-4" style="flex: 1; min-height: 250px; overflow: hidden; border-radius: 8px;">
+                        <img src="assets/new_robot.png" alt="1학년 기초 기구 설계 작품" style="width: 100%; height: 100%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" onerror="this.src='assets/creative_1.png'" />
                     </div>
                 </div>
                 
@@ -213,6 +216,77 @@
                 <div class="quote-box mt-4 text-center">
                     <p><strong>"로봇소프트웨어 운용 및 유지보수 전문기술인 양성"</strong>이라는 학과 교육 목표에 완벽히 부합하는 인재.<br>삼성전자 설비 직무 현장에 즉시 투입될 준비를 마쳤습니다.</p>
                 </div>
+
+                <div class="chip-anim-container mt-6">
+                    <svg viewBox="0 0 600 200" style="width: 100%; max-width: 600px; margin: 0 auto; display: block; height: auto;">
+                        <defs>
+                            <filter id="neonGlowBlue" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <filter id="neonGlowGold" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="4" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        <!-- Central Chip -->
+                        <g transform="translate(300, 100)">
+                            <rect x="-30" y="-30" width="60" height="60" rx="8" fill="rgba(10,15,30,0.8)" stroke="var(--gold)" stroke-width="2" filter="url(#neonGlowGold)"/>
+                            <rect x="-20" y="-20" width="40" height="40" rx="4" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                            <text x="0" y="4" fill="var(--pure-white)" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">READY</text>
+                        </g>
+
+                        <!-- Traces (Left Side) -->
+                        <path d="M 50 40 L 150 40 L 180 80 L 270 80" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+                        <path d="M 50 100 L 270 100" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+                        <path d="M 50 160 L 150 160 L 180 120 L 270 120" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+
+                        <!-- Traces (Right Side) -->
+                        <path d="M 550 40 L 450 40 L 420 80 L 330 80" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+                        <path d="M 550 100 L 330 100" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+                        <path d="M 550 160 L 450 160 L 420 120 L 330 120" stroke="rgba(20, 115, 230, 0.2)" stroke-width="2" fill="none"/>
+
+                        <!-- Animated Data Pulses (Left) -->
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="2s" repeatCount="indefinite" path="M 50 40 L 150 40 L 180 80 L 270 80" />
+                        </circle>
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M 50 100 L 270 100" begin="0.5s"/>
+                        </circle>
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="2.2s" repeatCount="indefinite" path="M 50 160 L 150 160 L 180 120 L 270 120" begin="1s"/>
+                        </circle>
+
+                        <!-- Animated Data Pulses (Right) -->
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="2.1s" repeatCount="indefinite" path="M 550 40 L 450 40 L 420 80 L 330 80" begin="0.2s"/>
+                        </circle>
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="2.4s" repeatCount="indefinite" path="M 550 100 L 330 100" begin="0.8s"/>
+                        </circle>
+                        <circle r="3" fill="#00e5ff" filter="url(#neonGlowBlue)">
+                            <animateMotion dur="1.9s" repeatCount="indefinite" path="M 550 160 L 450 160 L 420 120 L 330 120" begin="0.4s"/>
+                        </circle>
+
+                        <!-- End nodes -->
+                        <circle cx="50" cy="40" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                        <circle cx="50" cy="100" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                        <circle cx="50" cy="160" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                        <circle cx="550" cy="40" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                        <circle cx="550" cy="100" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                        <circle cx="550" cy="160" r="4" fill="rgba(20, 115, 230, 0.5)" />
+                    </svg>
+                    <div class="text-center mt-2">
+                        <span style="font-family: monospace; font-size: 0.75rem; color: var(--samsung-light-blue); letter-spacing: 2px;">6 MICRO-DEGREES INTEGRATED</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -303,6 +377,79 @@
                             <li>설비 이상 상태(Fault) 발생 시 Fail-safe 로직 구현 능력.</li>
                             <li>정확한 타이밍 차트 분석 및 시퀀스 다이어그램 작성.</li>
                         </ul>
+                        <div class="plc-anim-container mt-6">
+                            <div class="plc-header">
+                                <span class="blink-dot"></span> LIVE PLC SEQUENCE & FAIL-SAFE LOGIC
+                            </div>
+                            <svg viewBox="0 0 400 140" class="plc-svg" style="width: 100%; height: auto;">
+                                <defs>
+                                    <filter id="neonBlue" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="neonRed" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="neonGold" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Ladder Rails -->
+                                <line x1="20" y1="10" x2="20" y2="50" stroke="var(--samsung-light-blue)" stroke-width="3" filter="url(#neonBlue)"/>
+                                <line x1="380" y1="10" x2="380" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+                                
+                                <!-- Static Wires (dim) -->
+                                <line x1="20" y1="30" x2="380" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                
+                                <!-- Active Wires (animated) -->
+                                <line x1="20" y1="30" x2="80" y2="30" stroke="var(--samsung-light-blue)" stroke-width="2" filter="url(#neonBlue)"/>
+                                <line x1="110" y1="30" x2="200" y2="30" stroke="var(--samsung-light-blue)" stroke-width="2" filter="url(#neonBlue)" class="wire-start"/>
+                                <line x1="230" y1="30" x2="308" y2="30" stroke="var(--samsung-light-blue)" stroke-width="2" filter="url(#neonBlue)" class="wire-motor"/>
+                                <line x1="332" y1="30" x2="380" y2="30" stroke="var(--samsung-light-blue)" stroke-width="2" filter="url(#neonBlue)" class="wire-motor"/>
+
+                                <!-- Contact 1: START (Normally Open) -->
+                                <rect x="80" y="20" width="10" height="20" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="contact-start"/>
+                                <rect x="100" y="20" width="10" height="20" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="contact-start"/>
+                                <text x="95" y="12" fill="var(--text-muted)" font-size="10" font-family="monospace" text-anchor="middle">START</text>
+
+                                <!-- Contact 2: FAULT (Normally Closed) -->
+                                <rect x="200" y="20" width="10" height="20" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="contact-fault"/>
+                                <rect x="220" y="20" width="10" height="20" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="contact-fault"/>
+                                <line x1="195" y1="45" x2="235" y2="15" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="contact-fault-line"/>
+                                <text x="215" y="12" fill="var(--text-muted)" font-size="10" font-family="monospace" text-anchor="middle">FAULT</text>
+
+                                <!-- Coil: MOTOR -->
+                                <circle cx="320" cy="30" r="12" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.5)" stroke-width="2" class="coil-motor"/>
+                                <text x="320" y="12" fill="var(--text-muted)" font-size="10" font-family="monospace" text-anchor="middle">MOTOR</text>
+                                
+                                <!-- Timing Chart Section -->
+                                <g transform="translate(0, 75)">
+                                    <text x="15" y="15" fill="var(--text-muted)" font-size="9" font-family="monospace">START</text>
+                                    <path d="M 50 15 L 116 15 L 116 5 L 314 5 L 314 15 L 380 15" stroke="var(--samsung-light-blue)" fill="none" stroke-width="1.5"/>
+                                    
+                                    <text x="15" y="35" fill="var(--text-muted)" font-size="9" font-family="monospace">FAULT</text>
+                                    <path d="M 50 35 L 215 35 L 215 25 L 281 25 L 281 35 L 380 35" stroke="#ff4d4d" fill="none" stroke-width="1.5"/>
+                                    
+                                    <text x="15" y="55" fill="var(--text-muted)" font-size="9" font-family="monospace">MOTOR</text>
+                                    <path d="M 50 55 L 116 55 L 116 45 L 215 45 L 215 55 L 281 55 L 281 45 L 314 45 L 314 55 L 380 55" stroke="var(--gold)" fill="none" stroke-width="1.5" filter="url(#neonGold)"/>
+                                    
+                                    <!-- Sweeping scan line -->
+                                    <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,0.5)" stroke-width="1" class="anim-scan-line"/>
+                                </g>
+                            </svg>
+                        </div>
                     </div>
                     <div class="visual-content premium-logic">
                         <div class="circuit-container">
@@ -351,6 +498,56 @@
                     <div class="text-content">
                         <h3>AI 협업 (Vibe Coding) 및 DT 역량</h3>
                         <p class="story-text">미래의 유지보수 엔지니어는 기계를 고치는 것을 넘어 데이터를 다루어야 합니다. 코딩 보조 AI(Vibe Coding)를 활용한 스크립트 작성 및 로그 데이터 분석을 통해 설비 유지보수 과정을 디지털 트랜스포메이션(DT)하는 데 기여하겠습니다.</p>
+                        <div class="dt-pipeline-anim mt-6">
+                            <div class="plc-header" style="color: #00e5ff;">
+                                <span class="blink-dot" style="background-color: #00e5ff; box-shadow: 0 0 8px #00e5ff;"></span> AI DT PIPELINE
+                            </div>
+                            <svg viewBox="0 0 400 120" style="width: 100%; height: auto;">
+                                <defs>
+                                    <filter id="neonCyan" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="neonGoldDT" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Connection Lines -->
+                                <line x1="80" y1="50" x2="175" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                <line x1="225" y1="50" x2="320" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+
+                                <!-- Animated Data Packets -->
+                                <circle cx="80" cy="50" r="3" fill="#00e5ff" filter="url(#neonCyan)" class="anim-data-1"/>
+                                <circle cx="225" cy="50" r="3" fill="var(--gold)" filter="url(#neonGoldDT)" class="anim-data-2"/>
+                                
+                                <!-- Node 1: Raw Data -->
+                                <rect x="30" y="30" width="50" height="40" rx="6" fill="var(--bg-dark)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                                <text x="55" y="48" fill="var(--text-muted)" font-size="9" font-family="monospace" text-anchor="middle">SECS/GEM</text>
+                                <text x="55" y="60" fill="rgba(255,255,255,0.3)" font-size="7" font-family="monospace" text-anchor="middle">DATA</text>
+
+                                <!-- Node 2: AI Engine -->
+                                <rect x="175" y="20" width="50" height="60" rx="8" fill="rgba(0, 229, 255, 0.05)" stroke="#00e5ff" stroke-width="2" filter="url(#neonCyan)"/>
+                                <text x="200" y="45" fill="var(--pure-white)" font-size="10" font-weight="bold" text-anchor="middle">AI VIBE</text>
+                                <text x="200" y="60" fill="#00e5ff" font-size="8" font-family="monospace" text-anchor="middle">ANALYSIS</text>
+                                
+                                <!-- Node 3: Result -->
+                                <rect x="320" y="30" width="50" height="40" rx="6" fill="var(--bg-dark)" stroke="var(--gold)" stroke-width="1.5" filter="url(#neonGoldDT)"/>
+                                <text x="345" y="48" fill="var(--gold)" font-size="9" font-family="monospace" font-weight="bold" text-anchor="middle">DT</text>
+                                <text x="345" y="60" fill="var(--text-muted)" font-size="7" font-family="monospace" text-anchor="middle">REPORT</text>
+                                
+                                <!-- Graph animation inside AI node -->
+                                <path d="M 180 65 L 188 55 L 196 60 L 204 45 L 212 50 L 220 35" stroke="#00e5ff" fill="none" stroke-width="1" class="anim-ai-graph"/>
+                                
+                            </svg>
+                        </div>
                     </div>
                     <div class="visual-content premium-code">
                         <div class="mac-window">
@@ -400,6 +597,56 @@
                     <span class="badge-small advanced">AI Assistant</span>
                     <h2 class="section-title">이유찬 엔지니어 AI Q&A</h2>
                     <p class="sub-slogan" style="color:var(--text-muted)">로컬 데이터 기반 탐색 후, 필요시 AI가 답변합니다.</p>
+                </div>
+                
+                <!-- AI Visualizer Animation -->
+                <div class="ai-visualizer mt-2 mb-4">
+                    <svg viewBox="0 0 400 100" style="width: 100%; max-width: 300px; margin: 0 auto; display: block; height: auto;">
+                        <defs>
+                            <filter id="aiGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Soundwave/Processing bars -->
+                        <g transform="translate(200, 50)" fill="var(--samsung-light-blue)" filter="url(#aiGlow)">
+                            <rect x="-60" y="-10" width="4" height="20" rx="2">
+                                <animate attributeName="height" values="20;40;20" dur="1.2s" repeatCount="indefinite" />
+                                <animate attributeName="y" values="-10;-20;-10" dur="1.2s" repeatCount="indefinite" />
+                            </rect>
+                            <rect x="-40" y="-15" width="4" height="30" rx="2">
+                                <animate attributeName="height" values="30;60;30" dur="1s" repeatCount="indefinite" begin="0.2s" />
+                                <animate attributeName="y" values="-15;-30;-15" dur="1s" repeatCount="indefinite" begin="0.2s" />
+                            </rect>
+                            <rect x="-20" y="-20" width="4" height="40" rx="2">
+                                <animate attributeName="height" values="40;80;40" dur="1.4s" repeatCount="indefinite" begin="0.4s" />
+                                <animate attributeName="y" values="-20;-40;-20" dur="1.4s" repeatCount="indefinite" begin="0.4s" />
+                            </rect>
+                            <!-- Center big bar -->
+                            <rect x="-3" y="-25" width="6" height="50" rx="3" fill="#00e5ff">
+                                <animate attributeName="height" values="50;100;50" dur="0.8s" repeatCount="indefinite" begin="0.6s" />
+                                <animate attributeName="y" values="-25;-50;-25" dur="0.8s" repeatCount="indefinite" begin="0.6s" />
+                            </rect>
+                            <rect x="16" y="-20" width="4" height="40" rx="2">
+                                <animate attributeName="height" values="40;80;40" dur="1.3s" repeatCount="indefinite" begin="0.3s" />
+                                <animate attributeName="y" values="-20;-40;-20" dur="1.3s" repeatCount="indefinite" begin="0.3s" />
+                            </rect>
+                            <rect x="36" y="-15" width="4" height="30" rx="2">
+                                <animate attributeName="height" values="30;60;30" dur="1.1s" repeatCount="indefinite" begin="0.5s" />
+                                <animate attributeName="y" values="-15;-30;-15" dur="1.1s" repeatCount="indefinite" begin="0.5s" />
+                            </rect>
+                            <rect x="56" y="-10" width="4" height="20" rx="2">
+                                <animate attributeName="height" values="20;40;20" dur="1.5s" repeatCount="indefinite" begin="0.1s" />
+                                <animate attributeName="y" values="-10;-20;-10" dur="1.5s" repeatCount="indefinite" begin="0.1s" />
+                            </rect>
+                        </g>
+                    </svg>
+                    <div class="text-center mt-2" style="font-family: monospace; font-size: 0.75rem; color: #00e5ff; letter-spacing: 3px; opacity: 0.8;">
+                        <span class="blink-dot" style="background-color: #00e5ff; box-shadow: 0 0 8px #00e5ff; margin-right: 6px;"></span>AI PROCESSING
+                    </div>
                 </div>
                 
                 <div class="chat-container">

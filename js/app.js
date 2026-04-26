@@ -79,26 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
         Chart.defaults.color = '#94A3B8';
         Chart.defaults.font.family = "'Inter', 'Noto Sans KR', sans-serif";
 
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(212, 175, 55, 0.6)');
+        gradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
+
         growthChartInstance = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['1학년 1학기', '1학년 2학기', '2학년 1학기', '2학년 2학기', '3학년 1학기'],
+                labels: ['1학년 1학기', '1학년 2학기', '2학년 1학기', '2학년 2학기', '3학년 1학기', '3학년 2학기'],
                 datasets: [{
                     label: '전공 성적(GPA)',
-                    data: [3.5, 3.7, 4.1, 4.4, 4.5],
+                    data: [3.5, 3.7, 4.1, 4.4, 4.5, 4.5],
+                    clip: false,
                     borderColor: '#D4AF37',
-                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#034EA2',
-                    pointBorderColor: '#FFFFFF',
-                    pointBorderWidth: 2,
+                    backgroundColor: gradient,
+                    borderWidth: 4,
+                    pointBackgroundColor: '#0a0a0f',
+                    pointBorderColor: '#D4AF37',
+                    pointBorderWidth: 3,
                     pointRadius: 6,
-                    pointHoverRadius: 8,
+                    pointHoverRadius: 10,
+                    pointHoverBackgroundColor: '#D4AF37',
+                    pointHoverBorderColor: '#fff',
                     fill: true,
                     tension: 0.4
                 }]
             },
             options: {
+                layout: {
+                    padding: {
+                        top: 30,
+                        right: 20,
+                        left: 10,
+                        bottom: 10
+                    }
+                },
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {

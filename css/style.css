@@ -16,6 +16,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 body {
@@ -760,4 +762,180 @@ body {
 @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
 @keyframes slideUpSplash { 
     to { transform: translateY(-100vh); opacity: 0; visibility: hidden; pointer-events: none; } 
+}
+
+/* G-NUSMAS AI Mobile Scaling */
+@media (max-width: 768px) {
+    #cinematic-gnusmas-overlay {
+        transform: scale(0.65);
+        transform-origin: bottom right;
+        right: -10px !important;
+        bottom: -5px !important;
+    }
+}
+
+/* PLC Animation Container & Keyframes */
+.plc-anim-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    margin-top: 2rem;
+}
+.plc-header {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--samsung-light-blue);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+.blink-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff4d4d;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* Active Wires */
+.wire-start {
+    animation: wireStart 10s infinite;
+}
+@keyframes wireStart {
+    0%, 19.9% { opacity: 0; }
+    20%, 79.9% { opacity: 1; }
+    80%, 100% { opacity: 0; }
+}
+
+.wire-motor {
+    animation: wireMotor 10s infinite;
+}
+@keyframes wireMotor {
+    0%, 19.9% { opacity: 0; }
+    20%, 49.9% { opacity: 1; }
+    50%, 69.9% { opacity: 0; }
+    70%, 79.9% { opacity: 1; }
+    80%, 100% { opacity: 0; }
+}
+
+/* Contacts and Coils */
+.contact-start {
+    animation: contactStart 10s infinite;
+}
+@keyframes contactStart {
+    0%, 19.9% { stroke: rgba(255,255,255,0.5); }
+    20%, 79.9% { stroke: var(--samsung-light-blue); filter: url(#neonBlue); }
+    80%, 100% { stroke: rgba(255,255,255,0.5); }
+}
+
+.contact-fault {
+    animation: contactFault 10s infinite;
+}
+.contact-fault-line {
+    animation: contactFaultLine 10s infinite;
+}
+@keyframes contactFault {
+    0%, 49.9% { stroke: rgba(255,255,255,0.5); }
+    50%, 69.9% { stroke: #ff4d4d; filter: url(#neonRed); }
+    70%, 100% { stroke: rgba(255,255,255,0.5); }
+}
+@keyframes contactFaultLine {
+    0%, 49.9% { stroke: rgba(255,255,255,0.5); }
+    50%, 69.9% { stroke: transparent; }
+    70%, 100% { stroke: rgba(255,255,255,0.5); }
+}
+
+.coil-motor {
+    animation: coilMotor 10s infinite;
+}
+@keyframes coilMotor {
+    0%, 19.9% { stroke: rgba(255,255,255,0.5); filter: none; }
+    20%, 49.9% { stroke: var(--gold); filter: url(#neonGold); }
+    50%, 69.9% { stroke: rgba(255,255,255,0.5); filter: none; }
+    70%, 79.9% { stroke: var(--gold); filter: url(#neonGold); }
+    80%, 100% { stroke: rgba(255,255,255,0.5); filter: none; }
+}
+
+/* Timing Chart Scan Line */
+.anim-scan-line {
+    animation: scanMove 10s linear infinite;
+}
+@keyframes scanMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(330px); }
+}
+
+/* AI DT Pipeline Animation */
+.dt-pipeline-anim {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    margin-top: 2rem;
+}
+.anim-data-1 {
+    animation: dataMove1 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes dataMove1 {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(95px); opacity: 0; }
+}
+.anim-data-2 {
+    animation: dataMove2 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 1s;
+}
+@keyframes dataMove2 {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(95px); opacity: 0; }
+}
+.anim-ai-graph {
+    stroke-dasharray: 60;
+    animation: drawGraph 2s linear infinite;
+}
+@keyframes drawGraph {
+    0% { stroke-dashoffset: 60; }
+    50%, 100% { stroke-dashoffset: 0; }
+}
+
+/* Chart Background Animation */
+.chart-bg-anim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+    animation: chartSweep 6s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+@keyframes chartSweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(50%); }
+}
+
+/* Chart Canvas Pulsing Glow */
+#growthChart {
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+    animation: chartPulse 3s infinite alternate;
+}
+@keyframes chartPulse {
+    0% { filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
+    100% { filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.8)); }
 }
