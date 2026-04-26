@@ -1,3 +1,27 @@
+// Preload all image assets to prevent late loading issues
+const preloadImages = () => {
+    const images = [
+        'assets/image_3.png',
+        'assets/advanced_design.png',
+        'assets/semiconductor_future.png',
+        'assets/course_01.png',
+        'assets/course_02.png',
+        'assets/course_03.png',
+        'assets/course_04.png',
+        'assets/course_05.png',
+        'assets/course_06.png',
+        'assets/course_07.png',
+        'assets/creative_1.png',
+        'assets/robot_basic.png',
+        'assets/plc_logic.png'
+    ];
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+};
+preloadImages();
+
 document.addEventListener('DOMContentLoaded', () => {
     // SPA Routing Logic
     const navLinks = document.querySelectorAll('.nav-link');
