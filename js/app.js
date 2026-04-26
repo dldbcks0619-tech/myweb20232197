@@ -210,4 +210,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Background Animation System ---
+    const particleContainer = document.getElementById('particle-container');
+    const particleCount = 25; // Slightly more particles
+    const particles = [];
+
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 250 + 150; // Larger particles
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.opacity = Math.random() * 0.6 + 0.2; // Higher opacity
+        
+        particleContainer.appendChild(particle);
+        
+        return {
+            element: particle,
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 0.8, // Slightly faster
+            vy: (Math.random() - 0.5) * 0.8,
+            size: size
+        };
+    }
+
+    // Initialize particles
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(createParticle());
+    }
+
+    // Tech dots (smaller, sharper)
+    for (let i = 0; i < 40; i++) { // More tech dots
+        const dot = document.createElement('div');
+        dot.className = 'tech-dot';
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.top = `${Math.random() * 100}%`;
+        dot.style.animation = `pulse ${Math.random() * 3 + 2}s infinite alternate ${Math.random() * 2}s`;
+        particleContainer.appendChild(dot);
+    }
+
+    function animateBackground() {
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            // Wrap around screen
+            if (p.x < -p.size) p.x = window.innerWidth;
+            if (p.x > window.innerWidth) p.x = -p.size;
+            if (p.y < -p.size) p.y = window.innerHeight;
+            if (p.y > window.innerHeight) p.y = -p.size;
+            
+            p.element.style.transform = `translate(${p.x}px, ${p.y}px)`;
+        });
+        
+        requestAnimationFrame(animateBackground);
+    }
+
+    animateBackground();
+
+    // Subtle Mouse Interaction
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        particles.forEach(p => {
+            const dx = mouseX - (p.x + p.size / 2);
+            const dy = mouseY - (p.y + p.size / 2);
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 300) {
+                const force = (300 - dist) / 300;
+                p.vx -= dx * force * 0.001;
+                p.vy -= dy * force * 0.001;
+            }
+        });
+    });
+
 });

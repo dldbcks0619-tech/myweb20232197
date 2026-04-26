@@ -574,35 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPosts();
 
-    // Fix for SPA Routing with new menu
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section');
-    const scanner = document.querySelector('.scanning-effect');
-
-    // Add listener to the newly added link specifically to ensure it works
-    const boardLink = document.querySelector('.nav-link[data-section="board"]');
-    if (boardLink) {
-        boardLink.addEventListener('click', (e) => {
-            const targetId = 'board';
-            if (e.target.classList.contains('active')) return;
-
-            // Simple active state toggle (since we can't easily modify app.js logic without risk)
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            boardLink.classList.add('active');
-
-            if (scanner) {
-                scanner.classList.remove('scanning');
-                void scanner.offsetWidth;
-                scanner.classList.add('scanning');
-            }
-
-            setTimeout(() => {
-                sections.forEach(section => section.classList.remove('active'));
-                const boardSection = document.getElementById('board');
-                if (boardSection) boardSection.classList.add('active');
-            }, 300);
-        });
-    }
+    // Removed redundant board navigation listener as it's handled in app.js
 
     // Sort Button Event Listeners
     const sortButtons = document.querySelectorAll('.sort-btn');

@@ -36,15 +36,59 @@ body {
     background-size: 100% 100%, 60px 60px, 60px 60px;
     background-position: center center;
     z-index: -2;
+    animation: backgroundShift 15s linear infinite;
+}
+
+@keyframes backgroundShift {
+    0% { background-position: center center, 0px 0px, 0px 0px; }
+    100% { background-position: center center, 60px 60px, 60px 60px; }
 }
 
 .overlay-grid {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at 100% 0%, rgba(3, 78, 162, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 0% 100%, rgba(20, 115, 230, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 100% 0%, rgba(3, 78, 162, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(20, 115, 230, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(10, 15, 30, 0) 0%, var(--bg-dark) 100%);
     z-index: -1;
     pointer-events: none;
+    animation: gradientPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.particle-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(20, 115, 230, 0.6) 0%, transparent 75%);
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.tech-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--samsung-light-blue);
+    box-shadow: 0 0 15px var(--samsung-light-blue), 0 0 5px white;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(2); opacity: 1; }
 }
 
 /* Typography Utilities */
@@ -199,8 +243,8 @@ body {
 
 /* Headers inside cards */
 .card-header { margin-bottom: 2rem; }
-.slogan { font-size: 2.2rem; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
-.sub-slogan { font-size: 1.2rem; color: var(--text-muted); }
+.slogan { font-size: 2.2rem; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; word-break: keep-all; }
+.sub-slogan { font-size: 1.2rem; color: var(--text-muted); word-break: keep-all; }
 .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; border-left: 4px solid var(--samsung-blue); padding-left: 1rem; }
 
 /* Content Split Layout */
@@ -596,6 +640,7 @@ body {
     top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -603,6 +648,8 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    overflow-y: auto; /* Allow scrolling for tall modals */
+    padding: 20px;
 }
 .modal-overlay.active {
     opacity: 1;
@@ -668,8 +715,8 @@ body {
     }
     
     .main-content {
-        margin-top: 110px; /* Adjusted for the stacked mobile navbar */
-        min-height: calc(100vh - 110px);
+        margin-top: 130px; /* Increased to prevent overlap with multi-line mobile navbar */
+        min-height: calc(100vh - 130px);
     }
     
     /* Roadmap Mobile */
