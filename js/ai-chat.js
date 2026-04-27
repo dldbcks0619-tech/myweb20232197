@@ -158,7 +158,7 @@ function searchLocalKnowledge(query) {
 // 배포(Vercel)에서는 환경변수를 통해 서버에서 호출하므로 여기서 키를 설정하지 않아도 됩니다.
 // 로컬 테스트가 끝나면 키를 다시 비워두는 것을 권장합니다.
 const LOCAL_GEMINI_KEY = ''; // 여기에 API 키를 입력하세요 (로컬 테스트 전용)
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = 'gemini-1.5-flash';
 
 async function fetchFromAIAPI(query) {
     // 로컬 파일 환경이고 LOCAL_GEMINI_KEY가 설정된 경우 직접 API 호출
