@@ -161,8 +161,8 @@ const LOCAL_GEMINI_KEY = 'AIzaSyCuhoaNVB6zT100bvT216-l4cqXqiYNW5Y'; // ⚠️ �
 const GEMINI_MODEL = 'gemini-1.5-flash';
 
 async function fetchFromAIAPI(query) {
-    // 로컬 파일 환경이고 LOCAL_GEMINI_KEY가 설정된 경우 직접 API 호출
-    if (window.location.protocol === 'file:' && LOCAL_GEMINI_KEY) {
+    // LOCAL_GEMINI_KEY가 설정된 경우 프로토콜 무관하게 직접 Gemini API 호출 (로컬 테스트용)
+    if (LOCAL_GEMINI_KEY) {
         return await fetchDirectGeminiAPI(query, LOCAL_GEMINI_KEY);
     }
 
