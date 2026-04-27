@@ -158,14 +158,17 @@ function searchLocalKnowledge(query) {
 // 배포(Vercel)에서는 환경변수를 통해 서버에서 호출하므로 여기서 키를 설정하지 않아도 됩니다.
 // 로컬 테스트가 끝나면 키를 다시 비워두는 것을 권장합니다.
 const LOCAL_GEMINI_KEY = 'AIzaSyCuhoaNVB6zT100bvT216-l4cqXqiYNW5Y'; // ⚠️ 로컬 테스트 전용 - 테스트 후 반드시 비워두세요!
-// (모델명, API버전) 조합 순서대로 시도
+// (모델명, API버전) 조합 순서대로 시도 - 최신 모델 우선
 const GEMINI_CANDIDATES = [
+    { model: 'gemini-2.5-pro-preview-05-06', ver: 'v1beta' },
+    { model: 'gemini-2.5-flash-preview-04-17', ver: 'v1beta' },
+    { model: 'gemini-2.5-pro',          ver: 'v1beta' },
+    { model: 'gemini-2.5-flash',        ver: 'v1beta' },
     { model: 'gemini-1.5-flash',        ver: 'v1'     },
     { model: 'gemini-1.5-pro',          ver: 'v1'     },
     { model: 'gemini-1.5-flash-latest', ver: 'v1beta' },
     { model: 'gemini-1.5-pro-latest',   ver: 'v1beta' },
     { model: 'gemini-1.0-pro',          ver: 'v1'     },
-    { model: 'gemini-1.0-pro',          ver: 'v1beta' },
     { model: 'gemini-pro',              ver: 'v1beta' },
 ];
 

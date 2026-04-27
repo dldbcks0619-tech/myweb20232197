@@ -22,14 +22,17 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server (Vercel Environment Variables).' });
     }
 
-    // (모델명, API버전) 조합 순서대로 시도
+    // (모델명, API버전) 조합 순서대로 시도 - 최신 모델 우선
     const candidates = [
+        { model: 'gemini-2.5-pro-preview-05-06', ver: 'v1beta' },
+        { model: 'gemini-2.5-flash-preview-04-17', ver: 'v1beta' },
+        { model: 'gemini-2.5-pro',          ver: 'v1beta' },
+        { model: 'gemini-2.5-flash',        ver: 'v1beta' },
         { model: 'gemini-1.5-flash',        ver: 'v1'     },
         { model: 'gemini-1.5-pro',          ver: 'v1'     },
         { model: 'gemini-1.5-flash-latest', ver: 'v1beta' },
         { model: 'gemini-1.5-pro-latest',   ver: 'v1beta' },
         { model: 'gemini-1.0-pro',          ver: 'v1'     },
-        { model: 'gemini-1.0-pro',          ver: 'v1beta' },
         { model: 'gemini-pro',              ver: 'v1beta' },
     ];
 
