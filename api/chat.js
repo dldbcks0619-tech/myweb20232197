@@ -22,8 +22,8 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server (Vercel Environment Variables).' });
     }
 
-    // 모델 우선순위: gemini-1.5-flash -> gemini-1.5-pro (과부하 시 fallback)
-    const models = ['gemini-1.5-flash', 'gemini-1.5-pro'];
+    // 모델 우선순위: gemini-1.5-flash-latest -> gemini-1.5-pro-latest -> gemini-pro (과부하/미지원 시 fallback)
+    const models = ['gemini-1.5-flash-latest', 'gemini-1.5-pro-latest', 'gemini-pro'];
 
     const promptText = `너의 이름은 '포트폴리오 AI 봇'이고, 동양미래대학교 로봇소프트웨어과에 재학 중인 '이유찬'(2004년생, 현재 2026년 기준 23세)의 포트폴리오를 안내하는 역할을 맡았어. 사용자의 질문에 대해 이유찬을 대신해서 친절하고 정중한 존댓말로(해요체/하십시오체) 짧고 명확하게 답변해줘. 현재 시점은 2026년 4월이야.\n\n사용자 질문: ${query}`;
 

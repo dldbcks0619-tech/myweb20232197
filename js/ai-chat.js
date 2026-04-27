@@ -158,12 +158,12 @@ function searchLocalKnowledge(query) {
 // 배포(Vercel)에서는 환경변수를 통해 서버에서 호출하므로 여기서 키를 설정하지 않아도 됩니다.
 // 로컬 테스트가 끝나면 키를 다시 비워두는 것을 권장합니다.
 const LOCAL_GEMINI_KEY = 'AIzaSyCuhoaNVB6zT100bvT216-l4cqXqiYNW5Y'; // ⚠️ 로컬 테스트 전용 - 테스트 후 반드시 비워두세요!
-const GEMINI_MODEL = 'gemini-1.5-flash';
+const GEMINI_MODELS = ['gemini-1.5-flash-latest', 'gemini-1.5-pro-latest', 'gemini-pro'];
 
 async function fetchFromAIAPI(query) {
     // LOCAL_GEMINI_KEY가 설정된 경우 프로토콜 무관하게 직접 Gemini API 호출 (로컬 테스트용)
     if (LOCAL_GEMINI_KEY) {
-        return await fetchDirectGeminiAPI(query, LOCAL_GEMINI_KEY);
+        return await fetchDirectGeminiAPI(query, LOCAL_GEMINI_KEY, GEMINI_MODELS);
     }
 
     // Vercel 배포 환경: 서버리스 함수(/api/chat) 호출
@@ -197,30 +197,35 @@ async function fetchFromAIAPI(query) {
     }
 }
 
-async function fetchDirectGeminiAPI(query, apiKey) {
-    // 로컬 테스트 전용: 브라우저에서 Gemini API 직접 호출
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: `너의 이름은 '포트폴리오 AI 봇'이고, 동양미래대학교 로봇소프트웨어과에 재학 중인 '이유찬'(2004년생, 현재 2026년 기준 23세)의 포트폴리오를 안내하는 역할을 맡았어. 사용자의 질문에 대해 이유찬을 대신해서 친절하고 정중한 존댓말로(해요체/하십시오체) 짧고 명확하게 답변해줘. 현재 시점은 2026년 4월이야.\n\n사용자 질문: ${query}`
-                    }]
-                }]
-            })
-        });
-        const data = await response.json();
-        if (data.error) {
-            return `[Gemini API 오류] ${data.error.message}`;
+async function fetchDirectGeminiAPI(query, apiKey, models = GEMINI_MODELS) {
+    // 로컬 테스트 전용: 브라우저에서 Gemini API 직접 호출 (모델 fallback 지원)
+    const promptText = `너의 이름은 '포트폴리오 AI 봇'이고, 동양미래대학교 로봇소프트웨어과에 재학 중인 '이유찬'(2004년생, 현재 2026년 기준 23세)의 포트폴리오를 안내하는 역할을 맡았어. 사용자의 질문에 대해 이유찬을 대신해서 친절하고 정중한 존댓말로(해요체/하십시오체) 짧고 명확하게 답변해줘. 현재 시점은 2026년 4월이야.\n\n사용자 질문: ${query}`;
+    let lastError = '';
+    for (const model of models) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+            });
+            const data = await response.json();
+            if (data.error) {
+                const code = data.error.code || data.error.status;
+                if (code === 503 || code === 429 || code === 404 || data.error.status === 'RESOURCE_EXHAUSTED' || data.error.status === 'UNAVAILABLE' || data.error.status === 'NOT_FOUND') {
+                    lastError = data.error.message;
+                    console.warn(`Model ${model} unavailable, trying next...`);
+                    continue;
+                }
+                return `[Gemini API 오류] ${data.error.message}`;
+            }
+            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
+            }
+            return `[응답 오류] 예상치 못한 API 응답 구조: ${JSON.stringify(data).slice(0, 200)}`;
+        } catch (error) {
+            lastError = error.message;
         }
-        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-            return data.candidates[0].content.parts[0].text;
-        }
-        return `[응답 오류] 예상치 못한 API 응답 구조: ${JSON.stringify(data).slice(0, 200)}`;
-    } catch (error) {
-        return `[직접 API 호출 오류] ${error.message}`;
     }
+    return `[Gemini API 오류] 사용 가능한 모델이 없습니다. 잠시 후 다시 시도해주세요. (${lastError})`;
 }
